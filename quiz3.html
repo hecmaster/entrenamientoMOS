@@ -212,7 +212,8 @@
             <div class="question-section">
                 <h2 id="question-text">Cargando pregunta...</h2>
                 <div class="options-grid" id="options-container">
-                    </div>
+                    <!-- Opciones inyectadas dinámicamente -->
+                </div>
             </div>
 
             <div id="feedback" class="feedback-box"></div>
@@ -335,18 +336,228 @@
                 ],
                 correct: 0,
                 fb: "¡Soberbio! El panel de asignación XML mapea de manera visual los controles de formulario con esquemas de metadatos almacenados de forma corporativa."
+            },
+            {
+                q: "11. Al usar el control de cambios, ¿qué vista oculta temporalmente todas las marcas de revisión y muestra el documento tal y como quedaría si se aceptaran todas las modificaciones?",
+                a: [
+                    "Ninguna revisión (No Markup).",
+                    "Original.",
+                    "Todas las revisiones (All Markup).",
+                    "Revisiones sencillas (Simple Markup)."
+                ],
+                correct: 0,
+                fb: "¡Excelente! 'Ninguna revisión' te permite evaluar la lectura fluida del texto final sin ruido visual, pero manteniendo las modificaciones pendientes de aprobación."
+            },
+            {
+                q: "12. ¿Qué control del Programador es el único que permite restringir la edición interna de su texto de manera que el usuario solo pueda elegir una opción del menú interactivo, impidiendo que escriba libremente?",
+                a: [
+                    "Control de contenido de lista desplegable.",
+                    "Control de contenido de texto enriquecido.",
+                    "Control de contenido de texto sin formato.",
+                    "Control de cuadro combinado (Combo Box)."
+                ],
+                correct: 0,
+                fb: "¡Correcto! A diferencia del 'Cuadro combinado' (que sí permite escribir opciones personalizadas), la 'Lista desplegable' restringe la selección estrictamente a los ítems predefinidos."
+            },
+            {
+                q: "13. Al configurar 'Restringir edición' para permitir únicamente la edición de formularios, ¿cómo puede el creador del archivo realizar modificaciones de texto regulares sin remover la protección global?",
+                a: [
+                    "No es posible; se debe detener la protección temporalmente con la contraseña configurada.",
+                    "Usando el modo de diseño del programador de manera concurrente.",
+                    "Presionando la combinación Ctrl + Shift + P.",
+                    "Iniciando sesión con un rol administrativo externo de Microsoft Office."
+                ],
+                correct: 0,
+                fb: "¡Correcto! Para editar la estructura o párrafos fijos fuera de los controles interactivos, es obligatorio usar 'Suspender protección' mediante contraseña."
+            },
+            {
+                q: "14. ¿Cuál es el formato correcto si desea guardar una plantilla personalizada que incluya macros y controles activos para que otros equipos puedan usarla de punto de partida?",
+                a: [
+                    "Plantilla habilitada para macros de Word (*.dotm).",
+                    "Plantilla de Word (*.dotx).",
+                    "Documento de Word (*.docx).",
+                    "Documento habilitado para macros de Word (*.docm)."
+                ],
+                correct: 0,
+                fb: "¡Excelente! Las plantillas maestras reutilizables que contienen código o automatizaciones deben guardarse con la extensión .dotm."
+            },
+            {
+                q: "15. ¿En qué menú de la pestaña Vista se encuentra la opción que divide el documento en dos paneles horizontales independientes para analizar el principio y el final del texto de manera simultánea?",
+                a: [
+                    "Dividir (grupo Ventana).",
+                    "Nueva ventana.",
+                    "Organizar todo.",
+                    "Ver en paralelo."
+                ],
+                correct: 0,
+                fb: "¡Muy bien! El comando 'Dividir' segmenta tu pantalla activa en dos secciones independientes con sus respectivas barras de desplazamiento."
+            },
+            {
+                q: "16. Para usar de manera segura controles de formulario de versiones antiguas de Word (como campos de texto heredados), ¿qué estado debe activarse primero en la pestaña Programador?",
+                a: [
+                    "Proteger el formulario / Restringir edición.",
+                    "Activar el panel de asignación XML.",
+                    "Habilitar el modo de diseño.",
+                    "Crear un módulo de código de clase."
+                ],
+                correct: 0,
+                fb: "¡Correcto! Los campos de formulario de tipo 'heredados' (Legacy Forms) solo son interactivos y rellenables una vez que el documento es protegido y bloqueado para edición de formularios."
+            },
+            {
+                q: "17. Al resolver conflictos ortográficos y gramaticales masivos, ¿qué comando de la pestaña Revisar permite omitir la palabra sospechosa en todo el documento de una sola vez?",
+                a: [
+                    "Omitir todo.",
+                    "Omitir una vez.",
+                    "Agregar al diccionario.",
+                    "Autocorrección automatizada."
+                ],
+                correct: 0,
+                fb: "¡Exacto! 'Omitir todo' ignora de forma definitiva todas las instancias idénticas de esa palabra sin añadirla permanentemente al diccionario local."
+            },
+            {
+                q: "18. ¿Qué herramienta de la pestaña Revisar permite traducir de manera instantánea y con precisión un párrafo seleccionado respetando el formato visual preexistente?",
+                a: [
+                    "Traducir selección (dentro de Traducir).",
+                    "Traducir documento completo.",
+                    "Mini-traductor automático.",
+                    "Configurar idioma de preferencia."
+                ],
+                correct: 0,
+                fb: "¡Excelente! La opción 'Traducir selección' despliega un panel lateral interactivo y reemplaza el texto seleccionado manteniendo la estructura del párrafo."
+            },
+            {
+                q: "19. ¿Cuál es el propósito del comando 'Bloquear autores' en un entorno de coautoría dentro de Microsoft Word?",
+                a: [
+                    "Evitar que otros usuarios realicen ediciones en párrafos o secciones específicas que estás modificando activamente.",
+                    "Suspender los derechos de suscripción de la cuenta Office 365 del colaborador.",
+                    "Impedir que se visualice quién realizó las marcas de cambio históricas.",
+                    "Eliminar los comentarios insertados por editores externos."
+                ],
+                correct: 0,
+                fb: "¡Brillante! 'Bloquear autores' reserva exclusividad sobre el área de trabajo activa para evitar colisiones de datos durante la edición en la nube."
+            },
+            {
+                q: "20. Al grabar una Macro para dar formato automático, ¿qué limitación crítica del mouse se debe considerar bajo el motor VBA de Word?",
+                a: [
+                    "La grabadora no registra los movimientos de arrastre ni selecciones de texto hechos con el puntero del mouse en el cuerpo del documento.",
+                    "El mouse se bloquea físicamente en la pantalla durante la grabación.",
+                    "No se pueden utilizar los botones de comando de la cinta de opciones.",
+                    "La macro se interrumpe inmediatamente si se hace un clic derecho."
+                ],
+                correct: 0,
+                fb: "¡Es correcto! La grabadora de macros no registra clics ni arrastres sobre el lienzo. Se deben emplear combinaciones de teclado (Shift + flechas, etc.) para seleccionar."
+            },
+            {
+                q: "21. ¿Qué comando de la pestaña Vista permite alternar dinámicamente entre el documento actual y otros documentos de Word abiertos en la barra de tareas?",
+                a: [
+                    "Cambiar ventanas (grupo Ventana).",
+                    "Organizar todo.",
+                    "Ver en paralelo.",
+                    "Restablecer posición de ventana."
+                ],
+                correct: 0,
+                fb: "¡Así es! 'Cambiar ventanas' te muestra una lista con nombres de los archivos DOCX en ejecución para saltar velozmente entre ellos sin minimizar la aplicación."
+            },
+            {
+                q: "22. En el Control de Cambios, ¿qué comando debes presionar para validar de forma definitiva una modificación sugerida por otro revisor y avanzar automáticamente al siguiente cambio?",
+                a: [
+                    "Aceptar y pasar al siguiente (menú Aceptar).",
+                    "Aceptar todos los cambios.",
+                    "Rechazar y pasar al siguiente.",
+                    "Marcar como resuelto."
+                ],
+                correct: 0,
+                fb: "¡Perfecto! 'Aceptar y pasar al siguiente' optimiza los tiempos de auditoría integrando el cambio de manera permanente y saltando al próximo elemento de control."
+            },
+            {
+                q: "23. Al diseñar controles de contenido, ¿cómo se asegura de que el usuario no pueda borrar por accidente el control interactivo de la plantilla?",
+                a: [
+                    "Activando la casilla 'No se puede eliminar el control de contenido' en sus Propiedades.",
+                    "Configurando el control como un Bloque de creación dinámico.",
+                    "Asignando una clave criptográfica de seguridad al control individual.",
+                    "Incrustando el control dentro de un encabezado de página oculto."
+                ],
+                correct: 0,
+                fb: "¡Excelente! En las propiedades del control de contenido, esta casilla de verificación impide que se elimine el contenedor, forzando al usuario a solo editar su contenido."
+            },
+            {
+                q: "24. ¿Qué comando de la pestaña Programador permite importar o exportar un archivo con extensión .xml para estructurar y rellenar automáticamente los datos del documento?",
+                a: [
+                    "Asignación (dentro del grupo XML).",
+                    "Origen del esquema.",
+                    "Modo de Diseño.",
+                    "Propiedades de plantilla."
+                ],
+                correct: 0,
+                fb: "¡Correcto! El comando 'Asignación' abre el panel para importar esquemas y vincular los elementos con el texto."
+            },
+            {
+                q: "25. Si necesitas habilitar la pestaña 'Programador' en la cinta de opciones de Word porque no se muestra de forma nativa, ¿cuál es la ruta correcta?",
+                a: [
+                    "Archivo > Opciones > Personalizar cinta de opciones > marcar 'Programador'.",
+                    "Archivo > Opciones > Centro de confianza > Configuración de macros.",
+                    "Pestaña Vista > grupo Mostrar > activar 'Programador'.",
+                    "Hacer clic derecho sobre la regla horizontal y seleccionar 'Herramientas de programador'."
+                ],
+                correct: 0,
+                fb: "¡Perfecto! Esta es la ruta estándar para personalizar y habilitar las pestañas de control avanzado como Programador o Dibujar."
+            },
+            {
+                q: "26. Al auditar un documento con múltiples revisores, ¿cómo puedes filtrar la visualización del control de cambios para examinar únicamente las correcciones hechas por un editor específico?",
+                a: [
+                    "Mostrar revisiones > Personas > Seleccionar el usuario deseado.",
+                    "Ir a comparar documentos y seleccionar el autor.",
+                    "Usar el Panel de revisión vertical y ordenar alfabéticamente.",
+                    "No es posible segmentar las marcas de cambio por autor."
+                ],
+                correct: 0,
+                fb: "¡Soberbio! Word asigna un color y metadatos individuales a cada autor. Puedes filtrar la pantalla de revisión seleccionando personas específicas."
+            },
+            {
+                q: "27. ¿Qué función de la pestaña Vista elimina todas las barras de herramientas, la cinta de opciones y optimiza la pantalla con fuentes legibles para facilitar el estudio fluido del texto?",
+                a: [
+                    "Modo de lectura.",
+                    "Diseño de impresión.",
+                    "Diseño Web.",
+                    "Línea de cuadrícula dinámica."
+                ],
+                correct: 0,
+                fb: "¡Exacto! El Modo de lectura reconfigura las páginas de manera horizontal similar a un libro digital, reduciendo la fatiga visual."
+            },
+            {
+                q: "28. ¿Qué opción del Centro de confianza de Word se recomienda configurar para un entorno seguro que permita usar tus macros locales de entrenamiento sin bloqueos innecesarios?",
+                a: [
+                    "Deshabilitar todas las macros con notificación.",
+                    "Habilitar todas las macros (no recomendado).",
+                    "Deshabilitar todas las macros sin notificación.",
+                    "Bloquear la ejecución de todo código externo firmado digitalmente."
+                ],
+                correct: 0,
+                fb: "¡Correcto! 'Deshabilitar con notificación' es el balance idóneo: bloquea el código por defecto pero despliega una barra amarilla de advertencia para activarlo bajo demanda."
+            },
+            {
+                q: "29. Al insertar un control de contenido de 'Lista desplegable', ¿dónde se definen los elementos de texto y sus valores asociados que verá el usuario final?",
+                a: [
+                    "En las Propiedades del control de contenido (Botón Propiedades del grupo Controles).",
+                    "Escribiendo directamente dentro del marcador de posición en la pantalla.",
+                    "Importando una tabla externa desde Access.",
+                    "Creando una subrutina VBA en el módulo de la hoja."
+                ],
+                correct: 0,
+                fb: "¡Excelente! En las Propiedades del control de contenido hay un área dedicada para 'Agregar, Modificar y Quitar' cada uno de los elementos de la lista desplegable."
+            },
+            {
+                q: "30. ¿Cuál es el comando de la pestaña Revisar que calcula y muestra la cantidad total de palabras, caracteres con y sin espacios, párrafos y líneas del documento seleccionado?",
+                a: [
+                    "Contar palabras.",
+                    "Estadísticas de legibilidad.",
+                    "Comprobar accesibilidad.",
+                    "Sinónimos y glosario integrado."
+                ],
+                correct: 0,
+                fb: "¡Felicidades! 'Contar palabras' abre la ventana de estadísticas completas de composición del documento, un control esencial para cumplir límites de tamaño en proyectos formales."
             }
         ];
-
-        // Añadir preguntas simuladas altamente competitivas para completar las 30 especificadas para el examen 3
-        for (let i = 11; i <= 30; i++) {
-            questions.push({
-                q: `${i}. Pregunta sobre Revisar, Vista o Programador (Nivel Competencia Mundial) #${i}`,
-                a: ["Opción correcta alineada a rúbricas de Certiport.", "Opción genérica incorrecta B.", "Opción de distracción técnica C.", "Opción nula D."],
-                correct: 0,
-                fb: "Retroalimentación enfocada a un desempeño libre de errores bajo los rigurosos estándares globales de Microsoft Word Expert."
-            });
-        }
 
         let currentQ = 0;
         let score = 0;
@@ -362,7 +573,7 @@
             nextButton.style.display = "none";
             
             const currentData = questions[currentQ];
-            progressTracker.innerText = `Pregunta ${currentQ + 1} de${questions.length}`;
+            progressTracker.innerText = `Pregunta ${currentQ + 1} de ${questions.length}`;
             questionText.innerText = currentData.q;
             
             optionsContainer.innerHTML = "";
