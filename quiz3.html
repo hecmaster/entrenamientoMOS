@@ -226,6 +226,8 @@
     </div>
 
     <script>
+        // Mantenemos las preguntas estructuradas donde el índice de la respuesta correcta original es 0.
+        // El script se encargará de mezclarlas de forma transparente en tiempo de ejecución.
         const questions = [
             {
                 q: "1. ¿Qué opción de protección de documentos permite que los usuarios modifiquen libremente solo secciones específicas de un documento restringido sin requerir contraseña?",
@@ -561,12 +563,30 @@
 
         let currentQ = 0;
         let score = 0;
+        let shuffledOptions = []; // Guardará las opciones mezcladas para la pregunta actual
+        let currentCorrectIndex = 0; // Guardará el nuevo índice de la opción correcta de la pregunta actual
 
         const questionText = document.getElementById("question-text");
         const optionsContainer = document.getElementById("options-container");
         const feedbackBox = document.getElementById("feedback");
         const nextButton = document.getElementById("next-button");
         const progressTracker = document.getElementById("progress");
+
+        // Función para mezclar opciones conservando el rastreo de la respuesta correcta original
+        function shuffleOptions(currentData) {
+            const originalOptions = [...currentData.a];
+            const originalCorrectText = originalOptions[currentData.correct]; // El texto de la respuesta correcta original
+
+            // Mezclamos las opciones usando el algoritmo de Fisher-Yates
+            for (let i = originalOptions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [originalOptions[i], originalOptions[j]] = [originalOptions[j], originalOptions[i]];
+            }
+
+            // Buscamos en qué posición quedó la respuesta correcta después de la mezcla
+            currentCorrectIndex = originalOptions.indexOf(originalCorrectText);
+            shuffledOptions = originalOptions;
+        }
 
         function loadQuestion() {
             feedbackBox.style.display = "none";
@@ -576,8 +596,11 @@
             progressTracker.innerText = `Pregunta ${currentQ + 1} de ${questions.length}`;
             questionText.innerText = currentData.q;
             
+            // Mezclar de manera aleatoria las opciones
+            shuffleOptions(currentData);
+            
             optionsContainer.innerHTML = "";
-            currentData.a.forEach((option, index) => {
+            shuffledOptions.forEach((option, index) => {
                 const button = document.createElement("button");
                 button.className = "option-btn";
                 button.innerText = option;
@@ -594,7 +617,7 @@
                 btn.disabled = true;
             }
 
-            if (selectedIndex === currentData.correct) {
+            if (selectedIndex === currentCorrectIndex) {
                 score++;
                 feedbackBox.className = "feedback-box correct";
                 feedbackBox.innerHTML = `<strong>¡Correcto!</strong> <br>${currentData.fb}`;
@@ -605,7 +628,7 @@
                 feedbackBox.innerHTML = `<strong>Incorrecto.</strong> <br>${currentData.fb}`;
                 buttons[selectedIndex].style.borderColor = "var(--error)";
                 buttons[selectedIndex].style.background = "rgba(239, 68, 68, 0.15)";
-                buttons[currentData.correct].style.borderColor = "var(--success)";
+                buttons[currentCorrectIndex].style.borderColor = "var(--success)";
             }
             
             nextButton.style.display = "block";
