@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge B: MOS Word Expert</title>
+    <!-- Tailwind CSS para un diseño moderno, limpio y scannable -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#0078d4',
+                            dark: '#201f1e',
+                            light: '#f3f2f1',
+                            border: '#edebe9'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilo para tachar texto cuando el checklist esté activo */
+        .task-checked h3 {
+            text-decoration: line-through;
+            color: #a19f9d;
+        }
+        .task-checked p {
+            color: #a19f9d;
+        }
+    </style>
+</head>
+<body class="bg-brand-light font-sans text-brand-dark antialiased">
+
+    <!-- Encabezado Principal -->
+    <header class="bg-brand-dark text-white py-6 px-4 shadow-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+                <!-- Botón de retorno al panel principal -->
+                <a href="index.html" class="bg-transparent hover:bg-white/10 text-white border border-white/30 font-semibold text-sm px-4 py-2 rounded-lg transition-colors">
+                    ← Volver al Panel
+                </a>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-tight">📝 Challenge B — Word Expert</h1>
+                    <p class="text-gray-400 text-xs mt-0.5">Proyecto Integrador / Banco de Pruebas Avanzado</p>
+                </div>
+            </div>
+            
+            <!-- Temporizador y Descargas Integradas -->
+            <div class="flex flex-wrap items-center gap-3">
+                <div class="bg-red-950/60 border border-red-600 rounded-lg px-4 py-2 flex items-center gap-2">
+                    <span class="text-xs uppercase font-bold tracking-wider text-red-400">Tiempo:</span>
+                    <span id="timer" class="font-mono text-lg text-red-200 font-bold">20:00</span>
+                </div>
+                <a href="docs/Recursos_ChallengeB.zip" download class="bg-brand-blue hover:bg-blue-700 text-white font-medium text-sm px-4 py-2.5 rounded-lg transition-colors inline-flex items-center gap-2 shadow-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Descargar Recursos (.zip)
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="max-w-5xl mx-auto px-4 py-8">
+        
+        <!-- Alerta de Ubicación de Recursos (Carpeta docs) -->
+        <div class="bg-blue-50 border-l-4 border-brand-blue p-4 rounded-r-lg mb-8 shadow-sm">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="w-5 h-5 text-brand-blue" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm text-blue-800 font-medium">
+                        Los archivos base se descargan desde la carpeta interna <code class="bg-blue-100 px-1.5 py-0.5 rounded font-mono text-xs text-blue-900 font-bold">docs/</code>. Asegúrate de extraer <code class="bg-blue-100 px-1.5 py-0.5 rounded font-mono text-xs text-blue-900 font-bold">Receta Brownies.docm</code> y <code class="bg-blue-100 px-1.5 py-0.5 rounded font-mono text-xs text-blue-900 font-bold">Flan Napolitano.dotx</code> en tu área de trabajo local.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de Tareas -->
+        <div class="border-b border-gray-200 pb-4 mb-6 flex justify-between items-center">
+            <div>
+                <h2 class="text-lg font-bold text-gray-800">Banco de 25 Tareas Obligatorias</h2>
+                <p class="text-xs text-gray-500">Marca el checklist conforme completes cada ejercicio en el entorno real de Microsoft Word.</p>
+            </div>
+            <span class="bg-gray-200 text-gray-700 text-xs font-bold px-3 py-1.5 rounded-full font-mono" id="progress-tracker">0 / 25 Completadas</span>
+        </div>
+
+        <!-- Lista Dinámica de 25 Tareas -->
+        <div class="space-y-4">
+
+            <!-- Tarea 1 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 1</span>
+                        <h3 class="font-bold text-gray-900 text-base">Seguridad y Configuración de Macros</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Abre el documento <strong class="text-gray-800">Receta Brownies.docm</strong> desde la carpeta <code class="bg-gray-100 px-1 rounded text-xs font-mono">docs/</code>. Configura las opciones de seguridad de Word para que este documento ejecute de forma automática todas las macros firmadas digitalmente, mostrando notificaciones de advertencia para el resto.</p>
+                    
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1">
+                        <span>Ver solución paso a paso</span>
+                    </button>
+                    <div class="help-content hidden mt-2 bg-gray-50 rounded-lg p-3 text-xs text-gray-600 border border-gray-100 space-y-1">
+                        <p>1. Ve a la pestaña <strong>Archivo</strong> &gt; <strong>Opciones</strong> &gt; <strong>Centro de confianza</strong> &gt; <strong>Configuración del Centro de confianza</strong>.</p>
+                        <p>2. En <strong>Configuración de macros</strong>, marca la casilla <em>Deshabilitar todas las macros excepto las firmadas digitalmente</em>.</p>
+                        <p>3. En la barra de advertencia superior del documento, haz clic en <em>Habilitar contenido</em> para consolidar el archivo como de confianza.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarea 2 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 2</span>
+                        <h3 class="font-bold text-gray-900 text-base">Elementos Rápidos y Categorías Personalizadas</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Selecciona los párrafos del encabezado del documento. Guárdalos en la galería de <strong>Elementos rápidos</strong> con el nombre <strong>"Postres"</strong>, dentro de una nueva categoría llamada <strong>"Recetario"</strong>, asegurándote de guardarlo únicamente en este documento activo.</p>
+                    
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1">
+                        <span>Ver solución paso a paso</span>
+                    </button>
+                    <div class="help-content hidden mt-2 bg-gray-50 rounded-lg p-3 text-xs text-gray-600 border border-gray-100 space-y-1">
+                        <p>1. Selecciona el texto del encabezado principal.</p>
+                        <p>2. Ve a <strong>Insertar</strong> &gt; grupo Texto &gt; clic en <strong>Explorar partes rápidas</strong> &gt; <strong>Guardar selección en galería de partes rápidas</strong>.</p>
+                        <p>3. Modifica los parámetros: <em>Nombre:</em> `Postres` | <em>Categoría:</em> clic en <em>Crear nueva categoría</em> y escribe `Recetario` | <em>Guardar en:</em> Selecciona el nombre del documento actual (no Normal.dotm).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarea 3 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 3</span>
+                        <h3 class="font-bold text-gray-900 text-base">Configuración de Fuentes Predeterminadas</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Establece como fuente predeterminada del documento activo la tipografía <strong>Arial Nova</strong>, color <strong>Azul, Énfasis 1, Oscuro 25%</strong> y tamaño <strong>11 pto</strong>. Restringe el cambio para que afecte únicamente a este archivo.</p>
+                    
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1">
+                        <span>Ver solución paso a paso</span>
+                    </button>
+                    <div class="help-content hidden mt-2 bg-gray-50 rounded-lg p-3 text-xs text-gray-600 border border-gray-100 space-y-1">
+                        <p>1. En la pestaña <strong>Inicio</strong>, abre el cuadro de diálogo extendido de <strong>Fuente</strong> (<kbd class="bg-gray-200 px-1 rounded font-mono text-[10px]">Ctrl + D</kbd>).</p>
+                        <p>2. Configura: Fuente: `Arial Nova` | Tamaño: `11` | Color: `Azul, Énfasis 1, Oscuro 25%`.</p>
+                        <p>3. Haz clic en <strong>Establecer como predeterminado</strong> y marca la opción <em>Solo este documento</em>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarea 4 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 4</span>
+                        <h3 class="font-bold text-gray-900 text-base">Guiones Automáticos y Excepciones</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Habilita la división por <strong>guiones automáticos</strong> para todo el documento. Luego, selecciona el primer párrafo debajo del título principal y configúralo para que quede exento de esta regla.</p>
+                    
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1">
+                        <span>Ver solución paso a paso</span>
+                    </button>
+                    <div class="help-content hidden mt-2 bg-gray-50 rounded-lg p-3 text-xs text-gray-600 border border-gray-100 space-y-1">
+                        <p>1. Ve a la pestaña <strong>Disposición</strong> &gt; grupo Configurar página &gt; clic en <strong>Guiones</strong> &gt; selecciona <strong>Automático</strong>.</p>
+                        <p>2. Selecciona el párrafo objetivo. Abre las propiedades de <strong>Párrafo</strong> en la pestaña Inicio.</p>
+                        <p>3. En la pestaña <em>Líneas y saltos de página</em>, marca la casilla <strong>No dividir con guiones</strong> y haz clic en Aceptar.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarea 5 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 5</span>
+                        <h3 class="font-bold text-gray-900 text-base">Entradas de Índice Personalizadas</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Busca la <strong>segunda aparición</strong> de la palabra "gramos" en el texto y márcala como entrada de índice principal en minúsculas, asociando la palabra <strong>"Medidas"</strong> como subentrada.</p>
+                    
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1">
+                        <span>Ver solución paso a paso</span>
+                    </button>
+                    <div class="help-content hidden mt-2 bg-gray-50 rounded-lg p-3 text-xs text-gray-600 border border-gray-100 space-y-1">
+                        <p>1. Selecciona la segunda palabra "gramos" en el documento.</p>
+                        <p>2. Ve a la pestaña <strong>Referencias</strong> &gt; grupo Índice &gt; haz clic en <strong>Marcar entrada</strong>.</p>
+                        <p>3. En el campo <em>Subentrada</em>, escribe `Medidas` y haz clic en el botón <strong>Marcar</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarea 6 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 6</span>
+                        <h3 class="font-bold text-gray-900 text-base">Edición de Código de Macros (VBA)</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Modifica la macro llamada <strong>"Formato"</strong> a través del editor VBA. Ajusta el código interno de la propiedad de tamaño de fuente a un valor exacto de <strong>18 puntos</strong>.</p>
+                    
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1">
+                        <span>Ver solución paso a paso</span>
+                    </button>
+                    <div class="help-content hidden mt-2 bg-gray-50 rounded-lg p-3 text-xs text-gray-600 border border-gray-100 space-y-1">
+                        <p>1. Ve a la pestaña <strong>Programador</strong> &gt; grupo Código &gt; clic en <strong>Macros</strong>.</p>
+                        <p>2. Selecciona la macro `Formato` y presiona el botón <strong>Modificar</strong>.</p>
+                        <p>3. En el editor de código, localiza la instrucción <code class="bg-gray-200 px-1 rounded font-mono">.Size = </code> y reescribe su valor a `18`. Cierra la ventana.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarea 7 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 7</span>
+                        <h3 class="font-bold text-gray-900 text-base">Modificación de Bloques de Creación</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Accede al Organizador de bloques de creación, localiza el elemento denominado <strong>"Brownies"</strong> y cambia sus propiedades para que se inserte en su <strong>propia página</strong>.</p>
+                    
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1">
+                        <span>Ver solución paso a paso</span>
+                    </button>
+                    <div class="help-content hidden mt-2 bg-gray-50 rounded-lg p-3 text-xs text-gray-600 border border-gray-100 space-y-1">
+                        <p>1. Pestaña <strong>Insertar</strong> &gt; grupo Texto &gt; <strong>Explorar partes rápidas</strong> &gt; <strong>Organizador de bloques de creación</strong>.</p>
+                        <p>2. Selecciona `Brownies` en la lista y presiona <strong>Editar propiedades...</strong>.</p>
+                        <p>3. En el desplegable <em>Opciones</em>, selecciona <strong>Insertar contenido en su propia página</strong>. Guarda y confirma.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarea 8 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 8</span>
+                        <h3 class="font-bold text-gray-900 text-base">Títulos de Ilustración Personalizados</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Asigna un título debajo de la imagen del Flan Napolitano. Usa el rótulo por defecto <strong>Ilustración</strong>, agrega un espacio y tipea el texto <strong>"Flan Napolitano"</strong>.</p>
+                    
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1">
+                        <span>Ver solución paso a paso</span>
+                    </button>
+                    <div class="help-content hidden mt-2 bg-gray-50 rounded-lg p-3 text-xs text-gray-600 border border-gray-100 space-y-1">
+                        <p>1. Haz clic sobre la imagen para seleccionarla.</p>
+                        <p>2. Pestaña <strong>Referencias</strong> &gt; grupo Títulos &gt; clic en <strong>Insertar título</strong>.</p>
+                        <p>3. Elige Rótulo: `Ilustración` | Posición: `Debajo de la selección`. En el cuadro de texto superior escribe un espacio seguido de `Flan Napolitano` y pulsa Aceptar.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarea 9 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 9</span>
+                        <h3 class="font-bold text-gray-900 text-base">Control de Contenido de Imagen Restringido</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Agrega un <strong>Control de contenido de imagen</strong> al final del documento. Modifica sus propiedades asignando el título <strong>"Foto del Plato"</strong> y bloquéalo para impedir que sea eliminado.</p>
+                    
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1">
+                        <span>Ver solución paso a paso</span>
+                    </button>
+                    <div class="help-content hidden mt-2 bg-gray-50 rounded-lg p-3 text-xs text-gray-600 border border-gray-100 space-y-1">
+                        <p>1. Posiciona el cursor al final de la hoja.</p>
+                        <p>2. Pestaña <strong>Programador</strong> &gt; grupo Controles &gt; clic en el icono de <strong>Control de contenido de imagen</strong>.</p>
+                        <p>3. Con el control seleccionado, haz clic en <strong>Propiedades</strong>. Título: `Foto del Plato` y marca la casilla <em>No se puede eliminar el control de contenido</em>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarea 10 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 10</span>
+                        <h3 class="font-bold text-gray-900 text-base">Modificación de Estilo Título 1</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Modifica el estilo nativo <strong>Título 1</strong> en el archivo actual. Establece la fuente <strong>Franklin Gothic Book</strong>, color <strong>Azul, Énfasis 5, Oscuro 25%</strong>, formato <strong>Cursiva</strong> y un espaciado posterior de <strong>12 pto</strong>.</p>
+                    
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1">
+                        <span>Ver solución paso a paso</span>
+                    </button>
+                    <div class="help-content hidden mt-2 bg-gray-50 rounded-lg p-3 text-xs text-gray-600 border border-gray-100 space-y-1">
+                        <p>1. En Inicio, haz clic derecho sobre el estilo `Título 1` y selecciona <strong>Modificar...</strong>.</p>
+                        <p>2. Aplica la tipografía, cursiva e introduce el color correspondiente en el menú flotante.</p>
+                        <p>3. Clic en el botón inferior <strong>Formato</strong> &gt; <strong>Párrafo</strong> &gt; cambia Espaciado Posterior a `12 pto` y haz clic en Aceptar.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarea 11 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 11</span>
+                        <h3 class="font-bold text-gray-900 text-base">Avanzado de Caracteres: Versalitas</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Selecciona la forma de nube del documento. Configura el texto interior aplicando el efecto de <strong>Versalitas</strong> y comprime el espaciado entre caracteres en <strong>0.5 pto</strong>.</p>
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1"><span>Ver solución paso a paso</span></button>
+                    <div class="help-content hidden mt-2 text-xs bg-gray-50 p-3 rounded space-y-1"><p>1. Selecciona el texto interno de la autoforma de nube.</p><p>2. Abre el panel extendido de <strong>Fuente</strong> (<kbd class="bg-gray-200 px-1 rounded text-[10px]">Ctrl+D</kbd>) y marca <strong>Versalitas</strong>.</p><p>3. Pásate a la pestaña <strong>Avanzado</strong>, define Espaciado: `Comprimido` En: `0.5 pto`.</p></div>
+                </div>
+            </div>
+
+            <!-- Tarea 12 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 12</span>
+                        <h3 class="font-bold text-gray-900 text-base">Organizador de Estilos Inter-Plantillas</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Usa el organizador de estilos para transferir el estilo llamado <strong>"Flan"</strong> desde la plantilla <code class="bg-gray-100 px-1 rounded text-xs">docs/Flan Napolitano.dotx</code> hacia el documento de trabajo actual.</p>
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1"><span>Ver solución paso a paso</span></button>
+                    <div class="help-content hidden mt-2 text-xs bg-gray-50 p-3 rounded space-y-1"><p>1. En Inicio, abre la barra flotante de Estilos &gt; clic en el icono <strong>Administrar estilos</strong>.</p><p>2. Pulsa el botón inferior <strong>Importar o exportar...</strong>.</p><p>3. Cierra el archivo del panel secundario, abre la plantilla `Flan Napolitano.dotx` desde `docs/`, selecciona el estilo `Flan` y cópialo hacia tu documento activo.</p></div>
+                </div>
+            </div>
+
+            <!-- Tarea 13 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 13</span>
+                        <h3 class="font-bold text-gray-900 text-base">Personalización de Fuentes de Tema</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Crea una nueva combinación de fuentes de tema bajo el nombre de <strong>"Recetas"</strong>. Define la tipografía <strong>Cooper Black</strong> para los Títulos y <strong>Corbel</strong> para el Cuerpo.</p>
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1"><span>Ver solución paso a paso</span></button>
+                    <div class="help-content hidden mt-2 text-xs bg-gray-50 p-3 rounded space-y-1"><p>1. Ve a la pestaña <strong>Diseño</strong> &gt; grupo Formato del documento &gt; clic en <strong>Fuentes</strong>.</p><p>2. Clic en la opción inferior <strong>Personalizar fuentes...</strong>.</p><p>3. Cambia las opciones de fuentes por las indicadas, asígnale el Nombre `Recetas` y guárdalo.</p></div>
+                </div>
+            </div>
+
+            <!-- Tarea 14 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 14</span>
+                        <h3 class="font-bold text-gray-900 text-base">Transferencia de Proyectos de Macros</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Guarda tu archivo de trabajo como una plantilla con formato macro (.dotm) en la carpeta <code class="bg-gray-100 px-1 rounded text-xs font-mono">docs/</code>. Copia en ella la macro <strong>"Párrafo"</strong> proveniente de la plantilla original de Flan.</p>
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1"><span>Ver solución paso a paso</span></button>
+                    <div class="help-content hidden mt-2 text-xs bg-gray-50 p-3 rounded space-y-1"><p>1. Archivo &gt; Guardar como &gt; cambia tipo a <em>Plantilla habilitada para macros de Word (*.dotm)</em> en la carpeta `docs/`.</p><p>2. Pestaña <strong>Programador</strong> &gt; clic en <strong>Macros</strong> &gt; botón <strong>Organizador...</strong>.</p><p>3. En la pestaña de Proyectos, abre `Flan Napolitano.dotx` de la derecha y arrastra el módulo `Párrafo` al panel izquierdo.</p></div>
+                </div>
+            </div>
+
+            <!-- Tarea 15 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 15</span>
+                        <h3 class="font-bold text-gray-900 text-base">Actualización de Campos de Índice</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Dirígete al final del documento, haz clic en la sección de Índices y actualiza todo el campo automatizado para renderizar las entradas creadas.</p>
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1"><span>Ver solución paso a paso</span></button>
+                    <div class="help-content hidden mt-2 text-xs bg-gray-50 p-3 rounded space-y-1"><p>1. Haz un clic izquierdo dentro del texto estructurado del Índice final.</p><p>2. Presiona la combinación de teclas rápida <kbd class="bg-gray-200 px-1 rounded text-[10px]">F9</kbd> o haz clic derecho y selecciona <strong>Actualizar campos</strong>.</p></div>
+                </div>
+            </div>
+
+            <!-- Tarea 16 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 16</span>
+                        <h3 class="font-bold text-gray-900 text-base">Inserción de Tabla de Ilustraciones</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Inserta la tabla automatizada de ilustraciones usando el formato preestablecido <strong>Sencillo</strong> y asegúrate de activar hipervínculos internos en lugar de páginas numéricas.</p>
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1"><span>Ver solución paso a paso</span></button>
+                    <div class="help-content hidden mt-2 text-xs bg-gray-50 p-3 rounded space-y-1"><p>1. Posiciónate debajo del título correspondiente de Ilustraciones.</p><p>2. Ve a <strong>Referencias</strong> &gt; grupo Títulos &gt; <strong>Insertar tabla de ilustraciones</strong>.</p><p>3. En <em>Formatos</em> elige `Sencillo` y corrobora que esté tildada la opción de usar hipervínculos.</p></div>
+                </div>
+            </div>
+
+            <!-- Tarea 17 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 17</span>
+                        <h3 class="font-bold text-gray-900 text-base">Reemplazo de Metacaracteres Avanzado</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Ejecuta una búsqueda masiva de todas las marcas de tabulación del archivo de trabajo y reemplázalas colectivamente por saltos de línea manuales.</p>
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1"><span>Ver solución paso a paso</span></button>
+                    <div class="help-content hidden mt-2 text-xs bg-gray-50 p-3 rounded space-y-1"><p>1. Abre Reemplazar (<kbd class="bg-gray-200 px-1 rounded text-[10px]">Ctrl+L</kbd>) &gt; pulsa <strong>Más &gt;&gt;</strong>.</p><p>2. En Buscar ve a <em>Especial</em> y selecciona `Marca de tabulación` (<code class="bg-gray-200 px-1 rounded font-mono">^t</code>).</p><p>3. En Reemplazar con ve a <em>Especial</em> y elige `Salto de línea manual` (<code class="bg-gray-200 px-1 rounded font-mono">^l</code>). Haz clic en <strong>Reemplazar todo</strong>.</p></div>
+                </div>
+            </div>
+
+            <!-- Tarea 18 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 18</span>
+                        <h3 class="font-bold text-gray-900 text-base">Creación de Lista de Correspondencia</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Crea una nueva lista de destinatarios nativa en Word con 3 registros. Almacena la base de datos en la ruta <code class="bg-gray-100 px-1 rounded text-xs font-mono">docs/Destinatarios.mdb</code>.</p>
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1"><span>Ver solución paso a paso</span></button>
+                    <div class="help-content hidden mt-2 text-xs bg-gray-50 p-3 rounded space-y-1"><p>1. Ve a <strong>Correspondencia</strong> &gt; <strong>Seleccionar destinatarios</strong> &gt; <strong>Escribir una nueva lista...</strong>.</p><p>2. Digita tres registros de prueba y presiona Aceptar.</p><p>3. Nombra el documento como `Destinatarios` en la ruta de tu carpeta de simulación `docs/`.</p></div>
+                </div>
+            </div>
+
+            <!-- Tarea 19 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 19</span>
+                        <h3 class="font-bold text-gray-900 text-base">Creación de Estilo de Carácter</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Genera un estilo de tipo <strong>Carácter</strong> titulado <strong>"Ingredientes"</strong>. Usa la fuente <strong>Arial Narrow</strong>, color <strong>Oro, Énfasis 4, Oscuro 25%</strong> y confínalo únicamente al documento actual.</p>
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1"><span>Ver solución paso a paso</span></button>
+                    <div class="help-content hidden mt-2 text-xs bg-gray-50 p-3 rounded space-y-1"><p>1. Abre el menú flotante de Estilos &gt; haz clic abajo en <strong>Nuevo estilo</strong>.</p><p>2. Tipo de estilo: Selecciona `Carácter` | Nombre: `Ingredientes`.</p><p>3. Ajusta la tipografía e introduce el color de la especificación. Asegúrate de marcar <em>Solo en este documento</em>.</p></div>
+                </div>
+            </div>
+
+            <!-- Tarea 20 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 20</span>
+                        <h3 class="font-bold text-gray-900 text-base">Sustitución Masiva de Estilos</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Localiza de forma automatizada todos los elementos formateados con el estilo <strong>Normal</strong> y sustitúyelos asignándoles el estilo <strong>Énfasis Sutil</strong>.</p>
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1"><span>Ver solución paso a paso</span></button>
+                    <div class="help-content hidden mt-2 text-xs bg-gray-50 p-3 rounded space-y-1"><p>1. Abre la ventana de Reemplazar (<kbd class="bg-gray-200 px-1 rounded text-[10px]">Ctrl+L</kbd>).</p><p>2. Con el foco en Buscar, haz clic abajo en <strong>Formato</strong> &gt; <strong>Estilo</strong> &gt; Elige `Normal`.</p><p>3. Pasa el foco a Reemplazar con &gt; <strong>Formato</strong> &gt; <strong>Estilo</strong> &gt; Elige `Énfasis Sutil`. Haz clic en <strong>Reemplazar todo</strong>.</p></div>
+                </div>
+            </div>
+
+            <!-- Tarea 21 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 21</span>
+                        <h3 class="font-bold text-gray-900 text-base">Exportación de Conjunto de Estilos</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Exporta los estilos del documento actual creando un nuevo archivo de Conjunto de Estilos de Word llamado <strong>"Brownies"</strong> en la ubicación de recursos <code class="bg-gray-100 px-1 rounded text-xs font-mono">docs/</code>.</p>
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1"><span>Ver solución paso a paso</span></button>
+                    <div class="help-content hidden mt-2 text-xs bg-gray-50 p-3 rounded space-y-1"><p>1. Ve a la pestaña <strong>Diseño</strong> y expande la galería completa de Formato del documento.</p><p>2. Elige la opción inferior de <strong>Guardar como un nuevo conjunto de estilos...</strong>.</p><p>3. Modifica la ruta nativa y guárdalo como `Brownies` en la carpeta `docs/`.</p></div>
+                </div>
+            </div>
+
+            <!-- Tarea 22 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 22</span>
+                        <h3 class="font-bold text-gray-900 text-base">Exportación de Temas de Office</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Guarda todo el ecosistema de diseño global (fuentes, colores y efectos) bajo un archivo de tema independiente (.thmx) llamado <strong>"Recetas"</strong> dentro de la carpeta <code class="bg-gray-100 px-1 rounded text-xs font-mono">docs/</code>.</p>
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1"><span>Ver solución paso a paso</span></button>
+                    <div class="help-content hidden mt-2 text-xs bg-gray-50 p-3 rounded space-y-1"><p>1. Ve a la pestaña <strong>Diseño</strong> &gt; haz clic en el botón de la esquina izquierda <strong>Temas</strong>.</p><p>2. Haz clic en la opción <strong>Guardar tema actual...</strong> en la parte inferior.</p><p>3. Navega y guárdalo en la carpeta `docs/` con el nombre `Recetas`.</p></div>
+                </div>
+            </div>
+
+            <!-- Tarea 23 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 23</span>
+                        <h3 class="font-bold text-gray-900 text-base">Configuración Lingüística Específica</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Selecciona rigurosamente de forma aislada la palabra "Brownies" del título primordial de la receta y asígnale el idioma <strong>Inglés (Estados Unidos)</strong> para correcciones ortográficas.</p>
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1"><span>Ver solución paso a paso</span></button>
+                    <div class="help-content hidden mt-2 text-xs bg-gray-50 p-3 rounded space-y-1"><p>1. Selecciona minuciosamente la palabra indicada sin arrastrar espacios adicionales.</p><p>2. Ve a la pestaña <strong>Revisar</strong> &gt; grupo Idioma &gt; <strong>Idioma</strong> &gt; <strong>Establecer idioma de corrección</strong>.</p><p>3. Selecciona `Inglés (Estados Unidos)` en el listado y pulsa Aceptar.</p></div>
+                </div>
+            </div>
+
+            <!-- Tarea 24 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 24</span>
+                        <h3 class="font-bold text-gray-900 text-base">Campos de Fecha con Formato Dinámico</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Abre el editor del pie de página del documento de trabajo, borra la fecha estática actual e inserta un campo que contenga el **último formato de la lista** disponible con actualización automatizada.</p>
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1"><span>Ver solución paso a paso</span></button>
+                    <div class="help-content hidden mt-2 text-xs bg-gray-50 p-3 rounded space-y-1"><p>1. Haz doble clic en la sección inferior de la hoja para ingresar al Pie de página.</p><p>2. Borra el texto de la fecha anterior. Ve a la barra superior y selecciona <strong>Fecha y hora</strong>.</p><p>3. Haz clic en el formato final de la lista inferior, tilda la casilla <strong>Actualizar automáticamente</strong> y acepta.</p></div>
+                </div>
+            </div>
+
+            <!-- Tarea 25 -->
+            <div class="bg-white border border-brand-border rounded-xl p-5 shadow-sm hover:border-gray-300 transition-all flex items-start gap-4">
+                <input type="checkbox" class="task-checkbox mt-1.5 w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue">
+                <div class="flex-1 content-area">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-gray-100 text-gray-700 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase font-mono">Tarea 25</span>
+                        <h3 class="font-bold text-gray-900 text-base">Restricción de Edición por Secciones</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">Restringe la edición global del archivo permitiendo solo el <strong>Rellenando formularios</strong>, pero deshabilita la protección de la sección de recetas, bloqueando exclusivamente la sección <strong>"Ingredientes"</strong>.</p>
+                    <button class="btn-toggle-help mt-3 text-xs font-semibold text-brand-blue hover:text-blue-700 outline-none flex items-center gap-1"><span>Ver solución paso a paso</span></button>
+                    <div class="help-content hidden mt-2 text-xs bg-gray-50 p-3 rounded space-y-1"><p>1. Ve a la pestaña <strong>Revisar</strong> &gt; grupo Proteger &gt; <strong>Restringir edición</strong>.</p><p>2. Activa la casilla de restricciones de edición y en el desplegable selecciona <em>Rellenando formularios</em>.</p><p>3. Haz clic en el hipervínculo <strong>Seleccionar secciones...</strong> y deja marcada únicamente la sección de Ingredientes para mantenerla bloqueada.</p></div>
+                </div>
+            </label>
+
+        </div>
+    </main>
+
+    <!-- Script del Temporizador, Checklist e Interacción de Ayuda -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Lógica del Temporizador Regresivo (20 minutos)
+            let time = 20 * 60;
+            const timerElement = document.getElementById('timer');
+
+            const countdown = setInterval(() => {
+                let minutes = Math.floor(time / 60);
+                let seconds = time % 60;
+
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+
+                timerElement.textContent = `${minutes}:${seconds}`;
+
+                if (time <= 0) {
+                    clearInterval(countdown);
+                    timerElement.textContent = "00:00";
+                    timerElement.parentElement.classList.add('bg-red-600', 'animate-pulse');
+                }
+                time--;
+            }, 1000);
+
+            // 2. Corrección del Botón de Ayuda (Abre/Cierra sin interferencias)
+            const helpButtons = document.querySelectorAll('.btn-toggle-help');
+            
+            helpButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    // Evitamos cualquier propagación extra
+                    e.preventDefault();
+                    
+                    // Buscamos el contenedor de ayuda dentro del mismo bloque de la tarea
+                    const contentArea = button.closest('.content-area');
+                    const helpContent = contentArea.querySelector('.help-content');
+                    const textSpan = button.querySelector('span');
+
+                    if (helpContent.classList.contains('hidden')) {
+                        helpContent.classList.remove('hidden');
+                        textSpan.textContent = 'Ocultar solución';
+                    } else {
+                        helpContent.classList.add('hidden');
+                        textSpan.textContent = 'Ver solución paso a paso';
+                    }
+                });
+            });
+
+            // 3. Lógica Interactiva del Checklist y Progreso
+            const checkboxes = document.querySelectorAll('.task-checkbox');
+            const tracker = document.getElementById('progress-tracker');
+
+            function updateProgress() {
+                const checkedCount = document.querySelectorAll('.task-checkbox:checked').length;
+                tracker.textContent = `${checkedCount} / 25 Completadas`;
+                
+                if(checkedCount === 25) {
+                    tracker.classList.remove('bg-gray-200', 'text-gray-700');
+                    tracker.classList.add('bg-green-600', 'text-white');
+                } else {
+                    tracker.classList.remove('bg-green-600', 'text-white');
+                    tracker.classList.add('bg-gray-200', 'text-gray-700');
+                }
+            }
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', (e) => {
+                    const parentCard = checkbox.closest('.flex');
+                    const contentArea = parentCard.querySelector('.content-area');
+                    
+                    if(checkbox.checked) {
+                        contentArea.classList.add('task-checked');
+                    } else {
+                        contentArea.classList.remove('task-checked');
+                    }
+                    updateProgress();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

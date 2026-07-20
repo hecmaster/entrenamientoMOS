@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Solución Avanzada: Sprint C (Word Experto)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ms: {
+                            blue: '#0078d4',
+                            darkBlue: '#005a9e',
+                            grayBg: '#f8f9fa',
+                            textDark: '#111827',
+                            border: '#e5e7eb',
+                            success: '#107c41'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 10px; }
+        .search-highlight { background-color: #fde047; color: #111827; font-weight: bold; padding: 0 2px; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-gray-100 to-blue-50 font-sans text-ms-textDark antialiased p-4 md:p-8 min-h-screen">
+
+    <div class="max-w-5xl mx-auto bg-white/90 backdrop-blur-md border border-ms-border rounded-3xl shadow-2xl overflow-hidden flex flex-col min-h-[800px]">
+        
+        <!-- CABECERA DE LA GUÍA -->
+        <div class="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 p-6 text-white border-b border-slate-700 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div class="flex items-center gap-3">
+                <img src="https://img.icons8.com/color/48/microsoft-word-2019.png" alt="Word Logo" class="w-9 h-9"/>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[10px] font-black bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full uppercase tracking-widest">Auditoría de Pasos</span>
+                        <span class="text-slate-400 text-xs font-mono">helpC.html</span>
+                    </div>
+                    <h2 class="text-xl font-black tracking-tight mt-0.5">Solucionario Técnico: Entorno de Simulación C</h2>
+                </div>
+            </div>
+            <button onclick="window.close()" class="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all border border-white/10 shadow-md">
+                Cerrar Guía
+            </button>
+        </div>
+
+        <!-- BARRA DE BÚSQUEDA Y CONTROL RÁPIDO -->
+        <div class="bg-slate-50 p-4 border-b border-ms-border flex flex-col sm:flex-row gap-4 items-center justify-between">
+            <div class="relative w-full sm:w-72">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <img src="https://img.icons8.com/ios-glyphs/30/6b7280/search--v1.png" class="w-4 h-4"/>
+                </span>
+                <input type="text" id="search-input" onkeyup="searchSteps()" placeholder="Buscar clic o comando..." class="w-full bg-white border border-ms-border rounded-xl pl-9 pr-4 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-ms-blue focus:border-transparent transition-all shadow-sm">
+            </div>
+            
+            <!-- SELECTOR DE FASES DIRECTO -->
+            <div class="flex flex-wrap gap-1.5 w-full sm:w-auto justify-end">
+                <button onclick="filterHelp('all', this)" class="help-tab bg-ms-blue text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-all shadow-sm">Todos</button>
+                <button onclick="filterHelp('f1', this)" class="help-tab bg-white text-gray-600 border border-ms-border text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-all">F1</button>
+                <button onclick="filterHelp('f2', this)" class="help-tab bg-white text-gray-600 border border-ms-border text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-all">F2</button>
+                <button onclick="filterHelp('f3', this)" class="help-tab bg-white text-gray-600 border border-ms-border text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-all">F3</button>
+                <button onclick="filterHelp('f4', this)" class="help-tab bg-white text-gray-600 border border-ms-border text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-all">F4</button>
+            </div>
+        </div>
+
+        <!-- CONTENIDO PRINCIPAL DE PASOS -->
+        <div class="p-6 overflow-y-auto max-h-[640px] custom-scrollbar space-y-6 flex-1 bg-gray-50/30" id="help-container">
+
+            <!-- ALERTA INICIAL METODOLÓGICA -->
+            <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4 flex items-start gap-3 shadow-sm">
+                <img src="https://img.icons8.com/fluency/48/info.png" alt="Info" class="w-5 h-5 mt-0.5"/>
+                <div class="text-xs text-blue-900 leading-relaxed">
+                    <strong class="font-bold">Nota de Verificación de Archivos:</strong> Cerciórate de haber descargado previamente <code class="bg-blue-100 px-1 py-0.5 rounded font-mono text-ms-darkBlue">Texto_Base.docx</code> y <code class="bg-blue-100 px-1 py-0.5 rounded font-mono text-ms-darkBlue">Base_Clientes.xlsx</code>. Toda la ruta de clics descrita a continuación asume el uso de la interfaz en inglés o español correspondiente a los criterios internacionales de evaluación de la certificación.
+                </div>
+            </div>
+
+            <!-- FASE 1 -->
+            <div class="help-section space-y-3 bg-white p-5 border border-ms-border rounded-2xl shadow-sm transition-all" data-section="f1">
+                <div class="flex items-center gap-2 border-b border-gray-100 pb-2">
+                    <img src="https://img.icons8.com/color/48/settings.png" class="w-5 h-5"/>
+                    <h3 class="text-xs font-black text-slate-900 uppercase tracking-wider">Fase 1: Configuración de Entorno e Identidad Visual (Tareas 1-5)</h3>
+                </div>
+                
+                <div class="space-y-4 pt-1">
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [1] · Configuración de Idioma Localizado</span>
+                        Ruta: <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Archivo > Opciones > Idioma</code>. En el segmento "Idiomas de creación de Office y corrección", localiza <strong>Español (Internacional)</strong> o <strong>Español (España)</strong>, selecciónalo y presiona el botón <code class="bg-gray-100 px-1 rounded">Establecer como preferido</code>. Reinicia la aplicación si Word lo solicita.
+                    </div>
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [2] · Personalización de Barra de Acceso Rápido (QAT)</span>
+                        Ruta: <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Archivo > Opciones > Barra de herramientas de acceso rápido</code>. En la lista desplegable superior izquierda, cambia de "Comandos más utilizados" a <strong>Comandos que no están en la cinta de opciones</strong>. Desplázate hacia abajo, marca <strong>Ver Macros</strong> y haz clic en <code class="bg-gray-100 px-1 rounded">Agregar >></code>.
+                    </div>
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [3] · Creación de Paleta de Colores de Marca</span>
+                        Ruta: Pestaña <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Diseño > Colores > Personalizar colores</code>. Se abrirá una ventana flotante de personalización; modifica los colores de los elementos Énfasis 1 al Énfasis 4 de acuerdo a tus requerimientos gráficos corporativos. En el cuadro de texto "Nombre", digita estrictamente <code class="bg-gray-100 px-1 rounded font-bold">Mosaico_Corp</code> y presiona Guardar.
+                    </div>
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [4] · Definición de Fuentes del Tema</span>
+                        Ruta: Pestaña <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Diseño > Fuentes > Personalizar fuentes</code>. Modifica el campo "Fuente del título" seleccionando <strong>Segoe UI Semibold</strong> y el campo "Fuente del cuerpo" con <strong>Segoe UI Light</strong>. Guarda el esquema.
+                    </div>
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [5] · Forzado de Marcas de Formato Ocultas</span>
+                        Ruta: <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Archivo > Opciones > Mostrar</code>. Bajo el encabezado secundario "Mostrar siempre estas marcas de formato en pantalla", activa de forma permanente la casilla de verificación <strong>Mostrar todas las marcas de formato</strong> (u habilitar individualmente marcas de párrafo y texto oculto).
+                    </div>
+                </div>
+            </div>
+
+            <!-- FASE 2 -->
+            <div class="help-section space-y-3 bg-white p-5 border border-ms-border rounded-2xl shadow-sm transition-all" data-section="f2">
+                <div class="flex items-center gap-2 border-b border-gray-100 pb-2">
+                    <img src="https://img.icons8.com/color/48/grid.png" class="w-5 h-5"/>
+                    <h3 class="text-xs font-black text-blue-700 uppercase tracking-wider">Fase 2: Arquitectura del Documento y Maquetación (Tareas 6-10)</h3>
+                </div>
+                
+                <div class="space-y-4 pt-1">
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [6] · Configuración de Márgenes Simétricos</span>
+                        Ruta: Pestaña <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Disposición (o Formato) > Márgenes > Márgenes Personalizados</code>. En la sección "Páginas", despliega las opciones y selecciona <strong>Márgenes Simétricos</strong>. Luego, modifica el casillero de entrada <strong>Encuadernación</strong> asignándole el valor preciso de <code class="bg-gray-100 px-1 rounded font-bold">3.0 cm</code>.
+                    </div>
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [7] · Segmentación por Salto de Sección Técnico</span>
+                        Ruta: Ubica el punto de inserción (cursor) exactamente al final del último párrafo que compone la portada corporativa. Dirígete a la pestaña <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Disposición > Saltos</code> y en el bloque de Saltos de sección, selecciona <strong>Página Siguiente</strong>.
+                    </div>
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [8] · Orientación de Página Selectiva (Mixta)</span>
+                        Ruta: Haz clic en cualquier parte interna del bloque de datos técnicos (Página 3). Entra a <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Disposición > Configurar página (Lanzador/Flecha de esquina)</code>. Elige la orientación <strong>Horizontal</strong> y en el control inferior "Aplicar a:", selecciona estrictamente <strong>Esta sección</strong> antes de presionar Aceptar.
+                    </div>
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [9] · Desvinculación de Estructura de Encabezados/Pies</span>
+                        Ruta: Desplázate al área del pie de página de la Página 2 (Sección 2) y haz doble clic sobre ella para activar las herramientas de edición contextual. En la pestaña dinámica superior <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Encabezado y pie de página</code>, localiza el grupo "Navegación" y haz clic para desactivar el botón <strong>Vincular al anterior</strong>.
+                    </div>
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [10] · Esquemas Complejos de Numeración de Páginas</span>
+                        Ruta: En la Sección 2, ve a <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Insertar > Número de página > Formato del número de página</code>. Selecciona el formato <code class="bg-gray-100 px-1 rounded">i, ii, iii...</code>. Luego ve a la Sección 3 (Página 3 horizontal), ingresa nuevamente al mismo panel de Formato de número, marca el botón de opción <strong>Iniciar en:</strong> y setea el valor en <code class="bg-gray-100 px-1 rounded font-bold">1</code> (Asegúrate que use numeración arábiga).
+                    </div>
+                </div>
+            </div>
+
+            <!-- FASE 3 -->
+            <div class="help-section space-y-3 bg-white p-5 border border-ms-border rounded-2xl shadow-sm transition-all" data-section="f3">
+                <div class="flex items-center gap-2 border-b border-gray-100 pb-2">
+                    <img src="https://img.icons8.com/color/48/image.png" class="w-5 h-5"/>
+                    <h3 class="text-xs font-black text-purple-700 uppercase tracking-wider">Fase 3: Control de Objetos, Tablas de Datos y Referencias (Tareas 11-15)</h3>
+                </div>
+                
+                <div class="space-y-4 pt-1">
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [11] · Repetición de Filas de Título en Desbordamiento</span>
+                        Ruta: Selecciona toda la primera fila (encabezado) de la tabla técnica en el documento base. Dirígete a la pestaña contextual emergente <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Disposición de tabla (o Presentación)</code>, ubica el grupo de herramientas "Datos" en el extremo derecho y activa el comando <strong>Repetir filas de título</strong>.
+                    </div>
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [12] · Inserción de Rótulos y Títulos de Objetos (Captions)</span>
+                        Ruta: Selecciona el objeto gráfico o la tabla. Haz clic derecho y escoge la opción <strong>Insertar título...</strong>. En el cuadro desplegable "Rótulo", define si corresponde a una *Tabla* o *Ilustración*. Añade el texto aclaratorio correspondiente en la casilla superior y presiona Aceptar.
+                    </div>
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [13] · Compilación Automática de Tablas de Ilustraciones</span>
+                        Ruta: Coloca el cursor en el espacio designado para preliminares en la Página 2. Dirígete a la pestaña <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Referencias</code>. Dentro del grupo "Títulos", presiona el botón <strong>Insertar tabla de ilustraciones</strong>, ajusta los caracteres de relleno y valida la acción.
+                    </div>
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [14] · Nota al Pie con Símbolo Especial (Marca Personal)</span>
+                        Ruta: Selecciona el término técnico. Pestaña <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Referencias > Notas al pie (Haz clic en el lanzador/icono de esquina inferior)</code>. En la sección "Formato", busca la casilla de texto <strong>Marca personal</strong>, presiona el botón <strong>Símbolo...</strong>, elige el icono o carácter personalizado deseado y haz clic en Insertar.
+                    </div>
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [15] · Marcado de Entradas e Inserción de Índices</span>
+                        Ruta: Resalta la primera palabra clave del texto. Ve a <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Referencias > Marcar entrada</code> y presiona el botón Marcar. Repite esto con los 3 términos requeridos. Al final del documento (Página 4), haz clic en el botón <strong>Insertar índice</strong>, fija el formato en 2 columnas y haz clic en Aceptar.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FASE 4 -->
+            <div class="help-section space-y-3 bg-white p-5 border border-ms-border rounded-2xl shadow-sm transition-all" data-section="f4">
+                <div class="flex items-center gap-2 border-b border-gray-100 pb-2">
+                    <img src="https://img.icons8.com/color/48/shield.png" class="w-5 h-5"/>
+                    <h3 class="text-xs font-black text-green-700 uppercase tracking-wider">Fase 4: Automatización de Tareas, Correspondencia y Seguridad (Tareas 16-20)</h3>
+                </div>
+                
+                <div class="space-y-4 pt-1">
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [16] · Control de Contenido Protegido contra Eliminación</span>
+                        Ruta: Pestaña <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Programador (o Desarrollador) > grupo Controles</code>. Inserta el icono de <strong>Control de contenido de lista desplegable</strong>. Sin quitar la selección del objeto, haz clic en el comando <strong>Propiedades</strong> y en el cuadro de configuración marca la casilla de verificación <strong>No se puede eliminar el control de contenido</strong>.
+                    </div>
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [17] · Asociación Externa de Combinación de Correspondencia</span>
+                        Ruta: Pestaña <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Correspondencia > Seleccionar destinatarios > Usar una lista existente...</code> Navega en tu computadora, elige el archivo descargado <code class="bg-gray-100 px-1 rounded">Base_Clientes.xlsx</code> y confirma la importación de la hoja de cálculo. Tras ello, usa el comando <strong>Insertar campo combinado</strong> para colocar los campos necesarios en la lectura.
+                    </div>
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [18] · Grabación Local de Macros Estricta</span>
+                        Ruta: Pestaña <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Programador > Grabar macro</code>. Configura los parámetros iniciales del macro. Es mandatorio cambiar la opción de la lista desplegable llamada "Guardar macro en:" seleccionando de forma exclusiva <strong>Este documento (Texto_Base.docx)</strong> en lugar de guardarla globalmente en la plantilla Normal.dotm. Ejecuta las acciones del formato y detén la grabación.
+                    </div>
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [19] · Restricciones de Edición y Protección de Formularios</span>
+                        Ruta: Pestaña <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Revisar (o Programador) > Proteger > Restringir edición</code>. En el menú lateral derecho que emerge, marca el casillero del punto 2 (Restricciones de edición) y en la lista desplegable inferior selecciona con precisión quirúrgica la opción <strong>Rellenando formularios</strong>. Activa la protección.
+                    </div>
+                    <div class="step-item text-xs leading-relaxed text-gray-600">
+                        <span class="font-black text-slate-900 block mb-1">Paso [20] · Empaquetado Final de Entrega en Formato Ejecutable</span>
+                        Ruta: <code class="bg-gray-100 px-1.5 py-0.5 rounded text-red-600 font-mono">Archivo > Guardar como</code>. En la ventana del sistema, abre la lista desplegable de extensiones ("Tipo:") y selecciona con exactitud el formato **Documento habilitado para macros de Word (*.docm)** para preservar la integridad de la automatización grabada en el Paso 18.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FOOTER DE LA INTERFAZ -->
+        <div class="bg-slate-900 p-4 text-center text-[10px] text-slate-400 border-t border-slate-800 font-mono">
+            &copy; 2026 TBox Systems &bull; Entorno de Soporte para Certificaciones Técnicas Microsoft Office Specialist (MOS).
+        </div>
+
+    </div>
+
+    <!-- SCRIPTS DE INTERACCIÓN INTERNA -->
+    <script>
+        function filterHelp(phase, btn) {
+            const sections = document.querySelectorAll('.help-section');
+            const tabs = document.querySelectorAll('.help-tab');
+            
+            tabs.forEach(t => {
+                t.className = "help-tab bg-white text-gray-600 border border-ms-border text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-all";
+            });
+            btn.className = "help-tab bg-ms-blue text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-all shadow-sm";
+
+            sections.forEach(s => {
+                if (phase === 'all' || s.getAttribute('data-section') === phase) {
+                    s.style.display = 'block';
+                } else {
+                    s.style.display = 'none';
+                }
+            });
+        }
+
+        function searchSteps() {
+            const input = document.getElementById('search-input').value.toLowerCase();
+            const stepItems = document.querySelectorAll('.step-item');
+
+            stepItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(input)) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

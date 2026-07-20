@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta 7: Mega Sandbox Creativo MOS Word 2019</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#0078d4',
+                            dark: '#201f1e',
+                            light: '#f3f2f1',
+                            border: '#edebe9',
+                            success: '#107c41'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .task-checked { background-color: #f3f9f4; border-color: #107c41; opacity: 0.75; }
+        .task-checked h4, .task-checked p, .task-checked span, .task-checked a { text-decoration: line-through; color: #a19f9d; }
+    </style>
+</head>
+<body class="bg-brand-light font-sans text-brand-dark antialiased p-3 md:p-6">
+
+    <div class="max-w-5xl mx-auto bg-white border border-brand-border rounded-2xl shadow-xl overflow-hidden">
+        
+        <!-- ENCABEZADO PRINCIPAL -->
+        <div class="bg-brand-dark p-6 text-white flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Mega Sandbox Completo</span>
+                    <span class="text-gray-400 text-xs font-mono">ID: challengeD.html</span>
+                </div>
+                <h2 class="text-2xl font-black tracking-tight flex items-center gap-2">🎨 Reto Maestro: Revista Digital Microsoft Next-Gen</h2>
+                <p class="text-gray-400 text-xs mt-1">Hoja en blanco. Crea un documento premium aplicando el 100% de la matriz de habilidades MOS Word Associate y Expert.</p>
+            </div>
+            
+            <div class="bg-red-950/50 border border-red-600 rounded-xl px-4 py-2 flex items-center gap-3 self-stretch md:self-auto justify-center">
+                <span class="text-xs uppercase font-bold tracking-wider text-red-400">Tiempo de Match:</span>
+                <span id="global-timer" class="font-mono text-xl text-red-200 font-black">45:00</span>
+            </div>
+        </div>
+
+        <!-- REGLAS DEL ESCENARIO (Corregido con botón de descarga del servidor) -->
+        <div class="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-brand-border">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-3">
+                <div class="flex items-center gap-2 text-brand-blue">
+                    <span class="text-lg">📢</span>
+                    <h3 class="text-xs font-bold uppercase tracking-wider">Instrucciones del Sandbox Creativo</h3>
+                </div>
+                <!-- BOTÓN DE DESCARGA DIRECTA DEL SERVIDOR -->
+                <a href="docs/Base_Clientes.xlsx" download="Base_Clientes.xlsx" class="inline-flex items-center gap-2 bg-brand-blue hover:bg-blue-700 text-white text-xs font-bold px-3.5 py-2 rounded-lg shadow-sm transition-all self-stretch sm:self-auto justify-center">
+                    📥 Descargar Base_Clientes.xlsx
+                </a>
+            </div>
+            <p class="text-xs text-slate-700 leading-relaxed space-y-2">
+                <span class="block font-medium text-slate-900 mb-2">Instrucciones de recursos para el desarrollo del reto autónomo:</span>
+                <span class="block pl-4 border-l-2 border-brand-blue mb-1.5">
+                    • <strong class="text-slate-900">Para el Texto:</strong> Genera relleno inmediato directamente en Word usando la fórmula <code class="bg-blue-100 text-brand-blue px-1.5 py-0.5 rounded font-mono font-bold">=rand(5,4)</code>.
+                </span>
+                <span class="block pl-4 border-l-2 border-brand-blue mb-1.5">
+                    • <strong class="text-slate-900">Para Imágenes y Modelos 3D:</strong> Utiliza el catálogo en la nube desde la pestaña <em>Insertar</em> (<code class="text-brand-blue font-bold">Imágenes en línea</code>).
+                </span>
+                <span class="block pl-4 border-l-2 border-brand-blue mb-2">
+                    • <strong class="text-slate-900">Para Correspondencia (Bloque 4):</strong> Haz clic en el botón superior azul para descargar la <code class="bg-gray-200 px-1.5 py-0.5 rounded text-slate-800 font-mono font-bold">Base_Clientes.xlsx</code> desde el servidor a tu computadora. Al iniciar la combinación de correspondencia en Word, selecciona "Usar una lista existente..." y busca el archivo en tu carpeta de descargas locales.
+                </span>
+                <span class="block text-slate-800 font-medium mt-3 pt-2 border-t border-blue-100">
+                    Tu objetivo es estructurar una revista técnica interactiva de <strong>exactamente 3 o 4 páginas</strong>, garantizando el cumplimiento de los 45 requerimientos obligatorios organizados abajo.
+                </span>
+            </p>
+        </div>
+
+        <!-- FILTROS DE FASES INTERACTIVAS -->
+        <div class="bg-gray-50 border-b border-brand-border px-6 py-3 flex flex-wrap gap-2">
+            <button onclick="filterPhase('all', this)" class="phase-tab bg-brand-dark text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-all shadow-sm">Ver Todo (45 Requerimientos)</button>
+            <button onclick="filterPhase('fase1', this)" class="phase-tab bg-white text-gray-600 border border-brand-border text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-all">Configuración e Identidad (1-11)</button>
+            <button onclick="filterPhase('fase2', this)" class="phase-tab bg-white text-gray-600 border border-brand-border text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-all">Maquetación Estructurada (12-23)</button>
+            <button onclick="filterPhase('fase3', this)" class="phase-tab bg-white text-gray-600 border border-brand-border text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-all">Elementos Visuales y Datos (24-34)</button>
+            <button onclick="filterPhase('fase4', this)" class="phase-tab bg-white text-gray-600 border border-brand-border text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-all">Automatización y Seguridad (35-45)</button>
+        </div>
+
+        <!-- MATRIZ DE REQUERIMIENTOS -->
+        <div class="p-6 space-y-4 max-h-[600px] overflow-y-auto" id="tasks-container">
+
+            <!-- FASE 1 -->
+            <div class="task-card phase-1 border border-brand-border rounded-xl p-4 flex items-start gap-3 bg-white hover:shadow-sm transition-all" data-phase="fase1">
+                <input type="checkbox" onchange="toggleTask(this)" class="task-box mt-1 w-4 h-4 text-brand-success rounded border-gray-300 focus:ring-brand-success">
+                <div class="flex-1">
+                    <div class="flex justify-between items-center border-b border-gray-100 pb-2 mb-2">
+                        <span class="text-[9px] font-bold bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono">01 - 11</span>
+                        <a href="helpD.html#bloque1" target="_blank" class="text-[11px] font-bold text-blue-600 hover:text-blue-800 bg-blue-50 px-2.5 py-1 rounded-md transition-colors flex items-center gap-1">
+                            💡 Ver Solución Paso a Paso
+                        </a>
+                    </div>
+                    <h4 class="text-xs font-bold text-gray-900 uppercase tracking-wide mb-2">Bloque 1: Configuración de Entorno, Plantilla e Identidad Visual Básica</h4>
+                    <ul class="text-xs text-gray-600 space-y-2 list-disc pl-4 leading-relaxed">
+                        <li><strong>[1]</strong> Personaliza la barra de acceso rápido integrando los comandos de vista previa de impresión y activar macros.</li>
+                        <li><strong>[2]</strong> Configura las opciones avanzadas de Word cambiando el idioma de edición por defecto a Español (Internacional).</li>
+                        <li><strong>[3]</strong> Crea una paleta de colores de tema personalizada utilizando 4 variantes de tonos institucionales de Microsoft.</li>
+                        <li><strong>[4]</strong> Diseña una combinación de fuentes para el tema: define una fuente estilizada para títulos y una limpia para el cuerpo de texto.</li>
+                        <li><strong>[5]</strong> Guarda toda esta atmósfera de configuración visual exportándola como un archivo de Tema independiente (.thmx).</li>
+                        <li><strong>[6]</strong> Cambia la configuración por defecto de la plantilla normal para que asuma la nueva tipografía seleccionada solo en este documento.</li>
+                        <li><strong>[7]</strong> Inserta un título de portada libre y configúralo alterando los efectos de texto avanzados (reflejo y sombra específicos).</li>
+                        <li><strong>[8]</strong> Utiliza el comando de reemplazo por comodines para limpiar dobles espacios en blanco accidentales que generes al redactar.</li>
+                        <li><strong>[9]</strong> Modifica las propiedades integradas del archivo asignándole etiquetas personalizadas y el nombre del autor en los metadatos.</li>
+                        <li><strong>[10]</strong> Muestra de forma permanente los símbolos de formato ocultos en pantalla para auditar el control de saltos de página.</li>
+                        <li><strong>[11]</strong> Agrega un borde de página artístico personalizado que solo se aplique a la primera página del documento (portada).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- FASE 2 -->
+            <div class="task-card phase-2 border border-brand-border rounded-xl p-4 flex items-start gap-3 bg-white hover:shadow-sm transition-all" data-phase="fase2">
+                <input type="checkbox" onchange="toggleTask(this)" class="task-box mt-1 w-4 h-4 text-brand-success rounded border-gray-300 focus:ring-brand-success">
+                <div class="flex-1">
+                    <div class="flex justify-between items-center border-b border-gray-100 pb-2 mb-2">
+                        <span class="text-[9px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded font-mono">12 - 23</span>
+                        <a href="helpD.html#bloque2" target="_blank" class="text-[11px] font-bold text-blue-600 hover:text-blue-800 bg-blue-50 px-2.5 py-1 rounded-md transition-colors flex items-center gap-1">
+                            💡 Ver Solución Paso a Paso
+                        </a>
+                    </div>
+                    <h4 class="text-xs font-bold text-gray-900 uppercase tracking-wide mb-2">Bloque 2: Arquitectura del Documento, Estilos y Maquetación Avanzada</h4>
+                    <ul class="text-xs text-gray-600 space-y-2 list-disc pl-4 leading-relaxed">
+                        <li><strong>[12]</strong> Configura márgenes simétricos personalizados para una correcta encuadernación del dossier informativo.</li>
+                        <li><strong>[13]</strong> Genera una sección independiente para el artículo principal e implementa una maquetación en 3 columnas asimétricas.</li>
+                        <li><strong>[14]</strong> Inserta una línea vertical divisoria nativa entre las columnas creadas sin drawing líneas flotantes.</li>
+                        <li><strong>[15]</strong> Configura la paginación forzando un salto de sección de página siguiente para aislar la portada del resto del contenido.</li>
+                        <li><strong>[16]</strong> Activa la división de guiones automáticos (hiphenación) para optimizar la justificación del texto en las columnas.</li>
+                        <li><strong>[17]</strong> Modifica el estilo nativo "Título 1" alterando su espaciado anterior y posterior con un valor numérico exacto de puntos.</li>
+                        <li><strong>[18]</strong> Ajuste las opciones de flujo del estilo "Título 1" para obligar a que siempre empiece en una página nueva de forma automática.</li>
+                        <li><strong>[19]</strong> Active la restricción perimetral de paginación para evitar que queden líneas viudas y huérfanas en los párrafos de cuerpo.</li>
+                        <li><strong>[20]</strong> Diseña un estilo de carácter propio con un sombreado sutil y fuente en negrita para destacar términos técnicos sobre la IA.</li>
+                        <li><strong>[21]</strong> Diseña un encabezado personalizado que muestre el título de la sección activa de manera dinámica mediante campos de vinculación.</li>
+                        <li><strong>[22]</strong> Desvincula el pie de página de la primera sección para que el número de página inicie en la página 2 con formato romano.</li>
+                        <li><strong>[23]</strong> Establece una sangría de primera línea exacta para todos los párrafos que pertenezcan al cuerpo editorial regular.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- FASE 3 -->
+            <div class="task-card phase-3 border border-brand-border rounded-xl p-4 flex items-start gap-3 bg-white hover:shadow-sm transition-all" data-phase="fase3">
+                <input type="checkbox" onchange="toggleTask(this)" class="task-box mt-1 w-4 h-4 text-brand-success rounded border-gray-300 focus:ring-brand-success">
+                <div class="flex-1">
+                    <div class="flex justify-between items-center border-b border-gray-100 pb-2 mb-2">
+                        <span class="text-[9px] font-bold bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded font-mono">24 - 34</span>
+                        <a href="helpD.html#bloque3" target="_blank" class="text-[11px] font-bold text-blue-600 hover:text-blue-800 bg-blue-50 px-2.5 py-1 rounded-md transition-colors flex items-center gap-1">
+                            💡 Ver Solución Paso a Paso
+                        </a>
+                    </div>
+                    <h4 class="text-xs font-bold text-gray-900 uppercase tracking-wide mb-2">Bloque 3: Objetos Gráficos, Estructuras de Datos y Referencias Académicas</h4>
+                    <ul class="text-xs text-gray-600 space-y-2 list-disc pl-4 leading-relaxed">
+                        <li><strong>[24]</strong> Inserta una ilustración compleja utilizando un modelo 3D nativo o un gráfico SmartArt que detalle procesos informáticos.</li>
+                        <li><strong>[25]</strong> Aplica un efecto artístico de desenfoque o textura avanzada sobre una imagen de soporte integrada.</li>
+                        <li><strong>[26]</strong> Ajusta el ajuste de texto de la imagen principal en modo "Estrecho" y define puntos de ajuste de contorno personalizados.</li>
+                        <li><strong>[27]</strong> Incorpora un cuadro de texto lateral como cita destacada, dándole un color de fondo del tema y esquinas personalizadas.</li>
+                        <li><strong>[28]</strong> Añade texto alternativo (Alt Text) descriptivo a todos los elementos gráficos integrados para asegurar la accesibilidad.</li>
+                        <li><strong>[29]</strong> Diseña una tabla de datos financieros desde cero, definiendo anchos de columna fijos y márgenes de celda específicos.</li>
+                        <li><strong>[30]</strong> Configura la fila de encabezado de la tabla para que se repita automáticamente si la estructura se divide en dos páginas.</li>
+                        <li><strong>[31]</strong> Inserta rótulos o títulos automáticos (Captions) numerados tanto para las tablas de datos como para las ilustraciones.</li>
+                        <li><strong>[32]</strong> Inserta una tabla de ilustraciones automatizada en las páginas preliminares que compile los rótulos generados.</li>
+                        <li><strong>[33]</strong> Agrega notas al pie en términos científicos complejos, personalizando el símbolo del numerador por un carácter especial.</li>
+                        <li><strong>[34]</strong> Realiza el marcado manual de un mínimo de 4 términos clave para compilar un índice alfabético formal al cierre de la revista.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- FASE 4 -->
+            <div class="task-card phase-4 border border-brand-border rounded-xl p-4 flex items-start gap-3 bg-white hover:shadow-sm transition-all" data-phase="fase4">
+                <input type="checkbox" onchange="toggleTask(this)" class="task-box mt-1 w-4 h-4 text-brand-success rounded border-gray-300 focus:ring-brand-success">
+                <div class="flex-1">
+                    <div class="flex justify-between items-center border-b border-gray-100 pb-2 mb-2">
+                        <span class="text-[9px] font-bold bg-green-100 text-green-700 px-1.5 py-0.5 rounded font-mono">35 - 45</span>
+                        <a href="helpD.html#bloque4" target="_blank" class="text-[11px] font-bold text-blue-600 hover:text-blue-800 bg-blue-50 px-2.5 py-1 rounded-md transition-colors flex items-center gap-1">
+                            💡 Ver Solución Paso a Paso
+                        </a>
+                    </div>
+                    <h4 class="text-xs font-bold text-gray-900 uppercase tracking-wide mb-2">Bloque 4: Automatización de Controles, Correspondencia y Seguridad Avanzada</h4>
+                    <ul class="text-xs text-gray-600 space-y-2 list-disc pl-4 leading-relaxed">
+                        <li><strong>[35]</strong> Inserta un control de contenido de lista desplegable interactiva para que el lector seleccione su grado de satisfacción.</li>
+                        <li><strong>[36]</strong> Configura las propiedades del control para impedir que los usuarios editen o borren la estructura del contenedor.</li>
+                        <li><strong>[37]</strong> Inserta un campo de fecha automatizado (Field) en las firmas que se actualice dinámicamente con la fecha actual del sistema.</li>
+                        <li><strong>[38]</strong> Guarda un bloque visual creativo diseñado por ti (combinación de formas y texto) en la galería de QuickParts.</li>
+                        <li><strong>[39]</strong> Registra una macro básica que automatice el cambio de márgenes o formato de texto y asígnale un nombre descriptivo válido.</li>
+                        <li><strong>[40]</strong> Copia o exporta la macro grabada para que se guarde exclusivamente dentro del archivo actual y no de forma global.</li>
+                        <li><strong>[41]</strong> Vincula el origen de datos externo utilizando el archivo <code class="text-slate-800 font-bold font-mono">Base_Clientes.xlsx</code> que descargaste localmente mediante el botón superior de instrucciones.</li>
+                        <li><strong>[42]</strong> Inserta campos combinados personalizados en el párrafo de cierre de la revista para crear cartas personalizadas a la junta directiva.</li>
+                        <li><strong>[43]</strong> Ejecuta una simulación de inspección de documento para detectar información oculta, metadatos privados o comentarios.</li>
+                        <li><strong>[44]</strong> Aplica restricciones de edición avanzadas bloqueando el documento para que únicamente se permita el llenado de formularios.</li>
+                        <li><strong>[45]</strong> Guarda el proyecto final con extensión (.docm), garantizando que el entorno con macros empaquetado sea funcional.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- PIE DE CONTROL Y ENTREGA -->
+        <div class="bg-gray-50 p-4 px-6 border-t border-brand-border flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <span id="completion-badge" class="text-xs font-black bg-gray-200 text-gray-700 px-3 py-1.5 rounded-full font-mono">0 / 4 Bloques Completos</span>
+            </div>
+            <div class="flex gap-2 w-full sm:w-auto">
+                <a href="index.html" class="w-1/3 sm:w-auto bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold text-xs px-4 py-2.5 rounded-lg text-center transition-colors">
+                    🏠 Panel Principal
+                </a>
+                <button id="btn-submit-sandbox" class="w-2/3 sm:w-auto bg-brand-success hover:bg-green-800 text-white font-bold text-xs px-5 py-2.5 rounded-lg shadow-sm transition-colors">
+                    Registrar Desafío Terminado
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- LOGICA SCRIPT DEL SANDBOX -->
+    <script>
+        let totalSeconds = 45 * 60;
+        const timerText = document.getElementById('global-timer');
+
+        const cdTimer = setInterval(() => {
+            let m = Math.floor(totalSeconds / 60);
+            let s = totalSeconds % 60;
+
+            m = m < 10 ? '0' + m : m;
+            s = s < 10 ? '0' + s : s;
+
+            timerText.textContent = `${m}:${s}`;
+
+            if (totalSeconds <= 0) {
+                clearInterval(cdTimer);
+                timerText.textContent = "00:00";
+                timerText.parentElement.className = "bg-red-600 text-white rounded-xl px-4 py-2 font-black animate-pulse";
+            }
+            totalSeconds--;
+        }, 1000);
+
+        function filterPhase(phase, element) {
+            const cards = document.querySelectorAll('.task-card');
+            const tabs = document.querySelectorAll('.phase-tab');
+            
+            tabs.forEach(tab => {
+                tab.className = "phase-tab bg-white text-gray-600 border border-brand-border text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-all";
+            });
+            element.className = "phase-tab bg-brand-dark text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-all shadow-sm";
+
+            cards.forEach(card => {
+                if (phase === 'all' || card.getAttribute('data-phase') === phase) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function toggleTask(checkbox) {
+            const parent = checkbox.closest('.task-card');
+            if (checkbox.checked) {
+                parent.classList.add('task-checked');
+            } else {
+                parent.classList.remove('task-checked');
+            }
+
+            const totalChecked = document.querySelectorAll('.task-box:checked').length;
+            const badge = document.getElementById('completion-badge');
+            badge.textContent = `${totalChecked} / 4 Bloques Completos`;
+
+            if (totalChecked === 4) {
+                badge.className = "text-xs font-black bg-brand-success text-white px-3 py-1.5 rounded-full font-mono animate-bounce";
+            } else {
+                badge.className = "text-xs font-black bg-gray-200 text-gray-700 px-3 py-1.5 rounded-full font-mono";
+            }
+        }
+
+        document.getElementById('btn-submit-sandbox').addEventListener('click', () => {
+            const finishedCount = document.querySelectorAll('.task-box:checked').length;
+            
+            if (finishedCount < 4) {
+                alert(`Has completado ${finishedCount} de 4 bloques técnicos obligatorios. ¡Verifica el cumplimiento creativo de los 45 puntos antes de cerrar!`);
+            } else {
+                alert('¡Felicidades! Evaluación técnica libre guardada con éxito. Asegúrate de haber guardado tu archivo .docm en la ubicación correcta. Serás redirigido automáticamente al panel principal.');
+                window.location.href = "index.html";
+            }
+        });
+    </script>
+</body>
+</html>

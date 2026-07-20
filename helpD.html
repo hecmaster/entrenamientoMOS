@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Oficial de Soluciones: Mega Sandbox Word Expert</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#0078d4',
+                            dark: '#201f1e',
+                            light: '#f3f2f1',
+                            border: '#edebe9',
+                            success: '#107c41'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-light font-sans text-brand-dark antialiased p-3 md:p-6">
+
+    <div class="max-w-5xl mx-auto bg-white border border-brand-border rounded-2xl shadow-xl overflow-hidden">
+        
+        <!-- ENCABEZADO -->
+        <div class="bg-brand-blue p-6 text-white flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="bg-blue-800 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Centro de Soporte Técnico</span>
+                    <span class="text-blue-200 text-xs font-mono">ID: helpD.html</span>
+                </div>
+                <h2 class="text-2xl font-black tracking-tight flex items-center gap-2">💡 Manual Escaneable de Procedimientos MOS Word</h2>
+                <p class="text-blue-100 text-xs mt-1">Rutas e instrucciones paso a paso para resolver la matriz avanzada de 45 puntos.</p>
+            </div>
+            <button onclick="window.close();" class="bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs px-4 py-2 rounded-lg transition-colors shadow-sm">
+                ❌ Cerrar Guía
+            </button>
+        </div>
+
+        <!-- CONTENIDO DE SOLUCIONES -->
+        <div class="p-6 space-y-10 max-h-[750px] overflow-y-auto">
+
+            <!-- BLOQUE 1 -->
+            <div id="bloque1" class="scroll-mt-6 border border-brand-border rounded-xl p-5 bg-white shadow-sm">
+                <div class="border-b border-gray-100 pb-3 mb-4">
+                    <span class="text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-1 rounded font-mono">REQUERIMIENTOS 01 - 11</span>
+                    <h3 class="text-sm font-black text-slate-900 uppercase tracking-wide mt-2">🏠 Bloque 1: Configuración de Entorno, Plantilla e Identidad Visual Básica</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-600">
+                    <div class="space-y-2">
+                        <p><strong>[1] Acceso rápido:</strong> Archivo > Opciones > Barra de herramientas de acceso rápido. Elige "Comandos que no están en la cinta" > Agrega "Vista previa de impresión" y "Ver macros".</p>
+                        <p><strong>[2] Idioma predeterminado:</strong> Archivo > Opciones > Idioma. En "Idiomas de creación de Office", selecciona Español (Internacional) y haz clic en "Establecer como preferido".</p>
+                        <p><strong>[3] Paleta de colores:</strong> Pestaña Diseño > Colores > Personalizar colores. Modifica los acentos según los tonos institucionales y guarda con un nombre descriptivo.</p>
+                        <p><strong>[4] Fuentes del tema:</strong> Pestaña Diseño > Fuentes > Personalizar fuentes. Define la tipografía para Títulos (ej. Segoe UI Light) y Cuerpo (ej. Segoe UI) y dale guardar.</p>
+                        <p><strong>[5] Guardar Tema (.thmx):</strong> Pestaña Diseño > desplegar menú de Temas > Buscar la opción "Guardar tema actual" al final del contenedor.</p>
+                        <p><strong>[6] Modificar Normal.dotm:</strong> Pestaña Inicio > Clic derecho sobre el estilo Normal > Modificar. Cambia la fuente y marca la casilla inferior "Documentos nuevos basados en esta plantilla".</p>
+                    </div>
+                    <div class="space-y-2">
+                        <p><strong>[7] Efectos de texto avanzadas:</strong> Selecciona el título > Pestaña Inicio > Grupo Fuente > Clic en "Efectos de texto y tipografía" > Navega a Sombra o Reflejo y asigna valores personalizados.</p>
+                        <p><strong>[8] Comodines de espacio:</strong> Ctrl + L (Reemplazar) > Clic en "Más >>" > Activar "Usar caracteres de comodín". En buscar escribe <code class="bg-gray-100 p-0.5 rounded"> {2,}</code> y en reemplazar coloca un solo espacio.</p>
+                        <p><strong>[9] Metadatos del archivo:</strong> Archivo > Información. En el panel derecho, edita los campos de "Título", "Etiquetas" y haz clic derecho en el autor para editar sus propiedades.</p>
+                        <p><strong>[10] Formato oculto:</strong> Archivo > Opciones > Mostrar. Marca permanentemente la casilla "Mostrar todas las marcas de formato" para que no dependa del botón ¶ de Inicio.</p>
+                        <p><strong>[11] Borde de portada:</strong> Pestaña Diseño > Bordes de página. Elige un diseño artístico > En el menú desplegable "Aplicar a:", selecciona estrictamente "Esta sección: Solo la primera página".</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 2 -->
+            <div id="bloque2" class="scroll-mt-6 border border-brand-border rounded-xl p-5 bg-white shadow-sm">
+                <div class="border-b border-gray-100 pb-3 mb-4">
+                    <span class="text-[10px] font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded font-mono">REQUERIMIENTOS 12 - 23</span>
+                    <h3 class="text-sm font-black text-slate-900 uppercase tracking-wide mt-2">📐 Bloque 2: Arquitectura del Documento, Estilos y Maquetación Avanzada</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-600">
+                    <div class="space-y-2">
+                        <p><strong>[12] Márgenes simétricos:</strong> Pestaña Disposición > Márgenes > Márgenes personalizados. En Páginas elige "Margen simétrico" y establece los valores requeridos.</p>
+                        <p><strong>[13] Columnas asimétricas:</strong> Selecciona el texto del artículo > Disposición > Columnas > Más columnas. Elige "Izquierda" o "Derecha" y ajusta los anchos manualmente.</p>
+                        <p><strong>[14] Línea divisoria nativa:</strong> En el mismo panel anterior de "Más columnas", activa la casilla de verificación central que dice "Línea entre columnas".</p>
+                        <p><strong>[15] Salto de sección:</strong> Coloca el cursor al final de la portada > Pestaña Disposición > Saltos > Menú Saltos de sección > Elige "Página siguiente".</p>
+                        <p><strong>[16] División de guiones:</strong> Pestaña Disposición > Grupo Configurar página > Clic en "Guiones" > Selecciona "Automático".</p>
+                        <p><strong>[17] Espaciado de Título 1:</strong> Pestaña Inicio > Clic derecho en Título 1 > Modificar > Formato > Párrafo. En el grupo Espaciado, digita los puntos exactos en "Anterior" y "Posterior".</p>
+                    </div>
+                    <div class="space-y-2">
+                        <p><strong>[18] Salto de página en Estilo:</strong> En el menú Modificar Estilo > Formato > Párrafo > Ve a la pestaña "Líneas y saltos de página" > Activa "Salto de página anterior".</p>
+                        <p><strong>[19] Líneas viudas y huérfanas:</strong> Selecciona los párrafos > Clic derecho > Párrafo > Pestaña Líneas y saltos de página > Activa "Control de líneas viudas y huérfanas".</p>
+                        <p><strong>[20] Estilo de carácter propio:</strong> Panel de Estilos (Alt+Ctrl+Mayús+S) > Nuevo estilo. Tipo de estilo: "Carácter". Aplica fuente negrita y en Formato > Borde > Sombreado pon color sutil.</p>
+                        <p><strong>[21] Encabezado dinámico (Campos):</strong> Doble clic en el encabezado > Insertar > Elementos rápidos > Campo. Elige "StyleRef" y selecciona el estilo "Título 1" en la lista.</p>
+                        <p><strong>[22] Desvincular numeración:</strong> Doble clic en el pie de página de la Sección 2 > Pestaña Encabezado y pie de página > Desactiva el botón "Vincular al anterior". Cambia el formato a Romano.</p>
+                        <p><strong>[23] Sangría de primera línea:</strong> Selecciona el cuerpo > Párrafo > En "Especial" elige "Primera línea" e ingresa la medida exacta (ej. 1.25 cm).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 3 -->
+            <div id="bloque3" class="scroll-mt-6 border border-brand-border rounded-xl p-5 bg-white shadow-sm">
+                <div class="border-b border-gray-100 pb-3 mb-4">
+                    <span class="text-[10px] font-bold bg-purple-100 text-purple-700 px-2 py-1 rounded font-mono">REQUERIMIENTOS 24 - 34</span>
+                    <h3 class="text-sm font-black text-slate-900 uppercase tracking-wide mt-2">🖼️ Bloque 3: Objetos Gráficos, Estructuras de Datos y Referencias Académicas</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-600">
+                    <div class="space-y-2">
+                        <p><strong>[24] Modelos 3D y SmartArt:</strong> Pestaña Insertar > Modelos 3D > Modelos 3D de archivo (o SmartArt para diagramas de procesos).</p>
+                        <p><strong>[25] Efecto artístico de imagen:</strong> Selecciona la imagen > Pestaña Formato de imagen > Grupo Ajustar > Desplegar "Efectos artísticos" y selecciona el filtro indicado.</p>
+                        <p><strong>[26] Contorno estrecho modificado:</strong> Formato de imagen > Ajustar texto > Elige "Estrecho". Vuelve a dar clic en Ajustar texto > "Editar puntos de ajuste" y arrastra los nodos de la imagen.</p>
+                        <p><strong>[27] Cuadro de texto de cita:</strong> Pestaña Insertar > Cuadro de texto > Elige "Cita lateral". Modifica el relleno de la forma con un color derivado de la paleta del tema.</p>
+                        <p><strong>[28] Texto alternativo (Alt Text):</strong> Clic derecho sobre el objeto o ilustración > "Editar texto alternativo". Escribe la descripción de accesibilidad en el cuadro lateral.</p>
+                        <p><strong>[29] Formato estructural de tabla:</strong> Selecciona la tabla > Pestaña Presentación de tabla > Modifica las dimensiones numéricas en el grupo "Tamaño de celda" y sus márgenes internos.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <p><strong>[30] Repetir filas de título:</strong> Selecciona la primera fila de la tabla > Pestaña Presentación de tabla > Grupo Datos > Haz clic en el botón "Repetir filas de título".</p>
+                        <p><strong>[31] Insertar Títulos (Captions):</strong> Clic derecho en el objeto o tabla > "Insertar título...". Selecciona el rótulo adecuado (Ilustración o Tabla) y escribe la descripción.</p>
+                        <p><strong>[32] Tabla de ilustraciones:</strong> Ve a la página preliminar > Pestaña Referencias > Grupo Títulos > Haz clic en "Insertar tabla de ilustraciones" y presiona Aceptar.</p>
+                        <p><strong>[33] Nota al pie personalizada:</strong> Pestaña Referencias > Grupo Notas al pie > Haz clic en el lanzador de cuadro de diálogo (flecha pequeña) > En "Marca personal", inserta el carácter especial.</p>
+                        <p><strong>[34] Índice alfabético formal:</strong> Selecciona los términos > Referencias > Marcar entrada. Al finalizar, ve a la última página > Referencias > Insertar índice.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 4 -->
+            <div id="bloque4" class="scroll-mt-6 border border-brand-border rounded-xl p-5 bg-white shadow-sm">
+                <div class="border-b border-gray-100 pb-3 mb-4">
+                    <span class="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-1 rounded font-mono">REQUERIMIENTOS 35 - 45</span>
+                    <h3 class="text-sm font-black text-slate-900 uppercase tracking-wide mt-2">⚙️ Bloque 4: Automatización de Controles, Correspondencia y Seguridad Avanzada</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-600">
+                    <div class="space-y-2">
+                        <p><strong>[35] Control de lista desplegable:</strong> Activa pestaña Programador > Grupo Controles > Clic en "Control de contenido de lista desplegable". Entra a Propiedades para agregar los ítems.</p>
+                        <p><strong>[36] Proteger control:</strong> En las Propiedades del control anterior, activa las casillas "No se puede eliminar el control de contenido" y "No se puede editar el contenido".</p>
+                        <p><strong>[37] Campo de fecha dinámico:</strong> Pestaña Insertar > Elementos rápidos > Campo. Selecciona "Date", elige el formato requerido y valida que la casilla de actualización esté activa.</p>
+                        <p><strong>[38] Elementos rápidos (QuickParts):</strong> Selecciona el bloque visual diseñado > Insertar > Elementos rápidos > "Guardar selección en la galería de elementos rápidos".</p>
+                        <p><strong>[39] Grabar Macro:</strong> Pestaña Programador > Grabar macro. Asigna un nombre sin espacios, configura el botón o teclado rápido si se solicita y realiza las acciones de formato.</p>
+                        <p><strong>[40] Guardar macro en archivo:</strong> Al iniciar la grabación de la macro en el paso anterior, asegúrate de cambiar la opción "Guardar macro en:" a "Este documento (Dossier_Digital)".</p>
+                    </div>
+                    <div class="space-y-2">
+                        <p><strong>[41] Combinar correspondencia:</strong> Pestaña Correspondencia > Iniciar combinación de correspondencia > Cartas. Clic en "Seleccionar destinatarios" > "Usar una lista existente..." y busca el archivo Excel.</p>
+                        <p><strong>[42] Campos combinados:</strong> Ubica el cursor en el párrafo final > Correspondencia > Grupo Escribir e insertar campos > Clic en "Insertar campo combinado" y selecciona las columnas del Excel.</p>
+                        <p><strong>[43] Inspector de documento:</strong> Archivo > Información > Comprobar si hay problemas > Inspeccionar documento. Deja las casillas activas, haz clic en Inspeccionar y luego en "Quitar todo".</p>
+                        <p><strong>[44] Restricciones de edición:</strong> Pestaña Programador > Proteger > Restringir edición. En restricciones de edición marca "Admitir solo este tipo de edición" y elige "Rellenando formularios".</p>
+                        <p><strong>[45] Guardar habilitado para macros:</strong> Archivo > Guardar como. En el menú desplegable de formatos (Tipo), selecciona estrictamente: "Documento habilitado con macros de Word (*.docm)".</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- PIE DE PAGINA -->
+        <div class="bg-gray-50 p-4 px-6 border-t border-brand-border text-center">
+            <p class="text-[11px] text-gray-500 font-medium">Usa estas rutas oficiales como material de estudio complementario previo a la certificación MOS Word Associate y Expert.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>

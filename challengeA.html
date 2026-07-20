@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOS Word Expert - Expert Challenge A</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0b0f19 0%, #111827 100%);
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --card-border: rgba(255, 255, 255, 0.06);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --word-blue: #1d4ed8;
+            --word-blue-glow: #60a5fa;
+            --warning: #f59e0b;
+            --success: #10b981;
+            --help-bg: rgba(245, 158, 11, 0.03);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .challenge-container {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 950px;
+            width: 100%;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 1rem;
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            color: var(--word-blue-glow);
+        }
+
+        .timer-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #ef4444;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #ef4444;
+            font-size: 1.1rem;
+        }
+
+        .action-banner {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--card-border);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--word-blue);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover { background: #2563eb; }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--card-border);
+        }
+
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.05); }
+
+        .instructions h3 {
+            margin-bottom: 1.25rem;
+            color: var(--word-blue-glow);
+            font-size: 1.15rem;
+        }
+
+        .task-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .task-card {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 1.25rem;
+            transition: border-color 0.2s;
+        }
+
+        .task-main {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .task-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            flex: 1;
+        }
+
+        .task-content input[type="checkbox"] {
+            margin-top: 0.25rem;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .task-text {
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .task-text code {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+            color: #fca5a5;
+        }
+
+        .btn-help {
+            background: transparent;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: var(--warning);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-help:hover {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: var(--warning);
+        }
+
+        .help-guide {
+            display: none;
+            margin-top: 1rem;
+            padding: 1.25rem;
+            background: var(--help-bg);
+            border-left: 3px solid var(--warning);
+            border-radius: 0 6px 6px 0;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .help-guide ol {
+            margin-left: 1.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .help-guide li {
+            margin-bottom: 0.4rem;
+        }
+
+        .nav-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--card-border);
+            padding-top: 1.5rem;
+        }
+
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover { color: var(--text-primary); }
+    </style>
+</head>
+<body>
+
+    <div class="challenge-container" id="main-container">
+        <header>
+            <h1>Expert Challenge A: Configuración e Integración Avanzada</h1>
+            <div class="timer-box" id="timer">15:00</div>
+        </header>
+
+        <div class="action-banner">
+            <div>
+                <h4 style="margin-bottom: 0.25rem;">Materiales del Proyecto Integrador</h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">Descarga el recurso base y ejecuta las tareas en el menor tiempo posible (Límite estricto: 15 minutos).</p>
+            </div>
+            <div class="btn-group">
+                <a href="docs/Beneficios_del_deporte.docx" class="btn btn-primary" download>
+                    📥 Descargar Recurso
+                </a>
+                <a href="docs/Beneficios_del_deporte_Ejemplo.pdf" target="_blank" class="btn btn-secondary">
+                    👁️ Ver Ejemplo (PDF)
+                </a>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>Listado Oficial de Auditoría (17 Tareas - Word 2019)</h3>
+            <ul class="task-list">
+                
+                <!-- TAREA 1 -->
+                <li class="task-card">
+                    <div class="task-main">
+                        <div class="task-content">
+                            <input type="checkbox">
+                            <div class="task-text">
+                                <strong>1. Paleta de Colores Personalizada:</strong> Define un tema de color personalizado llamado <code>Deporte</code>. Configura: Énfasis 3 (RGB: 237, 186, 61), Énfasis 4 (RGB: 71, 150, 99) y Énfasis 6 (RGB: 231, 106, 29).
+                            </div>
+                        </div>
+                        <button class="btn-help" onclick="toggleHelp(1)">💡 Ayuda</button>
+                    </div>
+                    <div class="help-guide" id="help-1">
+                        <strong>Guía Técnica de Configuración:</strong>
+                        <ol>
+                            <li>Ve a la pestaña <strong>Diseño</strong> en la cinta de opciones.</li>
+                            <li>En el grupo <em>Formato del documento</em>, haz clic en el botón desplegable <strong>Colores</strong>.</li>
+                            <li>Ve al final del menú y selecciona la opción <strong>Personalizar colores...</strong></li>
+                            <li>En la ventana emergente, localiza la fila de <strong>Énfasis 3</strong>, abre su paleta, haz clic en <em>Más colores...</em> y en la pestaña <em>Personalizado</em> ingresa los valores (Rojo: 237, Verde: 186, Azul: 61). Presiona Aceptar.</li>
+                            <li>Repite con exactitud el paso anterior para <strong>Énfasis 4</strong> (71, 150, 99) y <strong>Énfasis 6</strong> (231, 106, 29).</li>
+                            <li>En la casilla inferior <em>Nombre</em>, borre el texto por defecto y asigne estrictamente: <code>Deporte</code>. Haz clic en <strong>Guardar</strong>.</li>
+                        </ol>
+                    </div>
+                </li>
+
+                <!-- TAREA 2 -->
+                <li class="task-card">
+                    <div class="task-main">
+                        <div class="task-content">
+                            <input type="checkbox">
+                            <div class="task-text">
+                                <strong>2. Fuentes de Tema Personalizadas:</strong> Configura una combinación de fuentes llamada <code>Deportivo</code>. Establece <strong>Century</strong> para Encabezados y <strong>Calibri</strong> para el Cuerpo.
+                            </div>
+                        </div>
+                        <button class="btn-help" onclick="toggleHelp(2)">💡 Ayuda</button>
+                    </div>
+                    <div class="help-guide" id="help-2">
+                        <strong>Guía Técnica de Configuración:</strong>
+                        <ol>
+                            <li>Dirígete a la pestaña <strong>Diseño</strong>.</li>
+                            <li>Haz clic en el comando desplegable <strong>Fuentes</strong> (justo debajo de Colores).</li>
+                            <li>Haz clic en la opción final denominada <strong>Personalizar fuentes...</strong></li>
+                            <li>En el cuadro de diálogo flotante, cambia la opción <em>Fuente de encabezado:</em> desplegando la lista y seleccionando la tipografía <strong>Century</strong>.</li>
+                            <li>Cambia el campo <em>Fuente de cuerpo:</em> seleccionando la familia tipográfica <strong>Calibri</strong>.</li>
+                            <li>Asigna en la casilla inferior de <em>Nombre</em> el valor de identificación: <code>Deportivo</code> y pulsa <strong>Guardar</strong>.</li>
+                        </ol>
+                    </div>
+                </li>
+
+                <!-- TAREA 3 -->
+                <li class="task-card">
+                    <div class="task-main">
+                        <div class="task-content">
+                            <input type="checkbox">
+                            <div class="task-text">
+                                <strong>3. Creación del Estilo Jerárquico "Beneficios":</strong> Desarrolla un estilo de párrafo llamado <code>Beneficios</code> basado en <em>Normal</em>. Aplica: Century de 11 pto, Cursiva, Justificada, color <em>Blanco, Fondo 1, Oscuro 50%</em> y un borde inferior continuo <em>Anaranjado, Énfasis 6</em> de 3/4 pto con espaciado de 4 pto.
+                            </div>
+                        </div>
+                        <button class="btn-help" onclick="toggleHelp(3)">💡 Ayuda</button>
+                    </div>
+                    <div class="help-guide" id="help-3">
+                        <strong>Guía Técnica de Configuración:</strong>
+                        <ol>
+                            <li>Pestaña <strong>Inicio</strong> &gt; haz clic en la flecha de expansión del grupo <em>Estilos</em> (esquina inferior derecha del bloque) para desplegar el Panel de Estilos.</li>
+                            <li>Haz clic en el primer botón inferior izquierdo del panel: <strong>Nuevo estilo</strong> (ícono de letra A con un signo de suma).</li>
+                            <li>Completa los metadatos iniciales: Nombre: <code>Beneficios</code>, Tipo de estilo: <em>Párrafo</em>, Estilo basado en: <em>Normal</em>.</li>
+                            <li>En los controles directos de formato rápidos, elige: Fuente: <strong>Century</strong>, Tamaño: <strong>11</strong>, activa el botón <strong>Cursiva</strong> (<em>K</em>) y la alineación <strong>Justificar</strong>. Modifica la paleta de color de fuente eligiendo exactamente el tono <em>Blanco, Fondo 1, Oscuro 50%</em>.</li>
+                            <li>Sin cerrar la ventana, ve a la esquina inferior izquierda y haz clic en el botón <strong>Formato</strong> &gt; selecciona <strong>Borde...</strong></li>
+                            <li>En la pestaña <em>Bordes</em>, configura: Valor: <em>Personalizado</em>, Estilo: Línea continua, Color: <em>Anaranjado, Énfasis 6</em>, Ancho: <strong>3/4 pto</strong>. Haz un solo clic en el diagrama de vista previa derecho para activar únicamente el **borde inferior**.</li>
+                            <li>En esa misma ventana de bordes, haz clic en el botón de la derecha <strong>Opciones...</strong> y en el apartado de <em>Distancia desde el texto</em> cambia el casillero <em>Inferior</em> a <strong>4 pto</strong>. Presiona Aceptar en las tres pantallas abiertas.</li>
+                        </ol>
+                    </div>
+                </li>
+
+                <!-- TAREA 4 -->
+                <li class="task-card">
+                    <div class="task-main">
+                        <div class="task-content">
+                            <input type="checkbox">
+                            <div class="task-text">
+                                <strong>4. Creación del Estilo Vinculado "Deportivo":</strong> Diseña un estilo de tipo Vinculado llamado <code>Deportivo</code> basado en <em>Título 1</em>. Configura el párrafo subsiguiente para que adopte el estilo <code>Beneficios</code>. Añade borde inferior continuo <em>Anaranjado, Énfasis 6</em> de 1/2 pto a 4 pto del texto.
+                            </div>
+                        </div>
+                        <button class="btn-help" onclick="toggleHelp(4)">💡 Ayuda</button>
+                    </div>
+                    <div class="help-guide" id="help-4">
+                        <strong>Guía Técnica de Configuración:</strong>
+                        <ol>
+                            <li>Despliega el panel de **Estilos** (Pestaña Inicio) y pulsa en **Nuevo estilo**.</li>
+                            <li>Nómbralo <code>Deportivo</code> y en el desplegable *Tipo de estilo* selecciona obligatoriamente **Vinculado (párrafo y carácter)**.</li>
+                            <li>Establece el campo *Estilo basado en:* asignando **Título 1**.</li>
+                            <li>En el campo inmediatamente inferior llamado *Estilo del párrafo siguiente*, despliega las opciones y selecciona tu estilo creado en el paso anterior: <code>Beneficios</code>.</li>
+                            <li>Para los espaciados, haz clic en **Formato &gt; Párrafo...** y en la sección *Espaciado* coloca: Anterior: **0 pto** y Posterior: **12 pto**. Deja el interlineado tal como se solicite y presiona Aceptar.</li>
+                            <li>Entra a **Formato &gt; Borde...**, define una línea recta continua de **1/2 pto**, color *Anaranjado, Énfasis 6*, actívala exclusivamente en la parte inferior de la cuadrícula de muestra y, mediante el botón **Opciones...**, ajusta la distancia inferior a **4 pto**. Acepta todo.</li>
+                        </ol>
+                    </div>
+                </li>
+
+                <!-- TAREA 5 -->
+                <li class="task-card">
+                    <div class="task-main">
+                        <div class="task-content">
+                            <input type="checkbox">
+                            <div class="task-text">
+                                <strong>5. Modificación Estricta de Título 1:</strong> Modifica el estilo preexistente <code>Título 1</code>. Cambia su color a <em>Anaranjado, Énfasis 6</em>, activa la casilla de efectos <strong>Mayúsculas</strong> y reduce el espaciado Anterior y Posterior a 0 pto.
+                            </div>
+                        </div>
+                        <button class="btn-help" onclick="toggleHelp(5)">💡 Ayuda</button>
+                    </div>
+                    <div class="help-guide" id="help-5">
+                        <strong>Guía Técnica de Configuración:</strong>
+                        <ol>
+                            <li>En la barra o galería horizontal de estilos visuales ubicada en la pestaña Inicio, localiza el cuadro rotulado como <strong>Título 1</strong>.</li>
+                            <li>Haz clic secundario (derecho) sobre él y selecciona la opción <strong>Modificar...</strong></li>
+                            <li>En el apartado de formato directo, cambia la paleta cromática asignando el color <em>Anaranjado, Énfasis 6</em>.</li>
+                            <li>Haz clic en el botón **Formato** de la base de la ventana y selecciona **Fuente...** En la sección de *Efectos*, marca explícitamente la casilla **Mayúsculas**. Pulsa Aceptar.</li>
+                            <li>Haz clic nuevamente en **Formato** &gt; elige **Párrafo...** y en el bloque de *Espaciado* reduce manualmente los valores de las casillas *Anterior* y *Posterior* colocándolas ambas en **0 pto**. Guarda todos los cambios.</li>
+                        </ol>
+                    </div>
+                </li>
+
+                <!-- TAREA 6 -->
+                <li class="task-card">
+                    <div class="task-main">
+                        <div class="task-content">
+                            <input type="checkbox">
+                            <div class="task-text">
+                                <strong>6. Exportación del Conjunto de Estilos:</strong> Guarda la colección actual de estilos del documento con el nombre <code>Estilos deportes</code>.
+                            </div>
+                        </div>
+                        <button class="btn-help" onclick="toggleHelp(6)">💡 Ayuda</button>
+                    </div>
+                    <div class="help-guide" id="help-6">
+                        <strong>Guía Técnica de Configuración:</strong>
+                        <ol>
+                            <li>Ingresa a la pestaña **Diseño** de la cinta de opciones general.</li>
+                            <li>En el bloque central *Formato del documento*, busca la barra de plantillas de estilos y haz clic en el botón flecha hacia abajo (**Más**) para expandir la galería completa.</li>
+                            <li>Haz clic en la opción del menú llamada **Guardar como un nuevo conjunto de estilos...**</li>
+                            <li>En la ventana emergente de guardado, digita el nombre literal: <code>Estilos deportes</code> cuidando la ortografía, y mantén la ruta por defecto que te sugiere la aplicación para asegurar su indexación. Haz clic en **Guardar**.</li>
+                        </ol>
+                    </div>
+                </li>
+
+                <!-- TAREA 7 -->
+                <li class="task-card">
+                    <div class="task-main">
+                        <div class="task-content">
+                            <input type="checkbox">
+                            <div class="task-text">
+                                <strong>7. Restricciones de Modificación Estética:</strong> Limita el formato del documento bloqueando explícitamente cualquier cambio accidental sobre el esquema o los temas generales.
+                            </div>
+                        </div>
+                        <button class="btn-help" onclick="toggleHelp(7)">💡 Ayuda</button>
+                    </div>
+                    <div class="help-guide" id="help-7">
+                        <strong>Guía Técnica de Configuración:</strong>
+                        <ol>
+                            <li>Dirígete a la pestaña **Revisar**.</li>
+                            <li>En el grupo *Proteger* (extremo derecho), haz clic en el comando **Restringir edición**. Se abrirá un panel lateral derecho.</li>
+                            <li>En la primera sección del panel (*1. Restricciones de formato*), activa la casilla de verificación: **Limitar el formato a una selección de estilos**.</li>
+                            <li>Inmediatamente abajo, haz clic sobre las letras azules que dicen **Configuración...**</li>
+                            <li>En la ventana emergente *Restricciones de formato*, desplázate a la base del cuadro y marca obligatoriamente la casilla de verificación: **Bloquear el cambio de esquema o tema**. Haz clic en Aceptar y confirma el cuadro de diálogo secundario pulsando en *Sí*.</li>
+                        </ol>
+                    </div>
+                </li>
+
+                <!-- TAREA 8 -->
+                <li class="task-card">
+                    <div class="task-main">
+                        <div class="task-content">
+                            <input type="checkbox">
+                            <div class="task-text">
+                                <strong>8. Bloque de Creación "Inicio":</strong> Selecciona la tabla del encabezado ("Beneficios del ejercicio físico" e imagen). Regístrala como bloque de creación llamado <code>Inicio</code> dentro de la plantilla global <code>Building Blocks.dotx</code>.
+                            </div>
+                        </div>
+                        <button class="btn-help" onclick="toggleHelp(8)">💡 Ayuda</button>
+                    </div>
+                    <div class="help-guide" id="help-8">
+                        <strong>Guía Técnica de Configuración:</strong>
+                        <ol>
+                            <li>Sombrea minuciosamente toda la estructura de la tabla de la portada inicial (asegúrate de tomar el controlador de la tabla en cruz para abarcar tanto la fila del texto corporativo como el contenedor de la imagen).</li>
+                            <li>Pestaña **Insertar** &gt; ve al grupo *Texto* e identifica el ícono de **Explorar elementos rápidos** (ícono azul con cuadrícula).</li>
+                            <li>Haz clic en él y selecciona la última opción: **Guardar selección en la galería de elementos rápidos...**</li>
+                            <li>Configura los campos: Nombre: <code>Inicio</code>, Galería: *Elementos rápidos*, Categoría: *General*, y en la opción **Guardar en:** despliega el menú y selecciona rigurosamente **Building Blocks.dotx**. Pulsa Aceptar.</li>
+                        </ol>
+                    </div>
+                </li>
+
+                <!-- TAREA 9 -->
+                <li class="task-card">
+                    <div class="task-main">
+                        <div class="task-content">
+                            <input type="checkbox">
+                            <div class="task-text">
+                                <strong>9. Control de Contenido para Imágenes:</strong> Selecciona el diagrama circular "Los pros de hacer ejercicio" de la página 2 y envuélvelo en un <em>Control de contenido de imagen</em>.
+                            </div>
+                        </div>
+                        <button class="btn-help" onclick="toggleHelp(9)">💡 Ayuda</button>
+                    </div>
+                    <div class="help-guide" id="help-9">
+                        <strong>Guía Técnica de Configuración:</strong>
+                        <ol>
+                            <li>Baja a la página número 2 del archivo del reto y haz un clic izquierdo directo para seleccionar la imagen con el gráfico circular.</li>
+                            <li>Dirígete a la pestaña avanzada **Programador** (Si no la tienes activa, ve a Archivo &gt; Opciones &gt; Personalizar cinta de opciones y activa la casilla de verificación de *Programador* o *Desarrollador*).</li>
+                            <li>En el grupo funcional *Controles*, haz un clic sobre el ícono **Control de contenido de imagen** (representado visualmente por el pictograma pequeño de un paisaje con montañas y sol). El objeto quedará enmarcado automáticamente.</li>
+                        </ol>
+                    </div>
+                </li>
+
+                <!-- TAREA 10 -->
+                <li class="task-card">
+                    <div class="task-main">
+                        <div class="task-content">
+                            <input type="checkbox">
+                            <div class="task-text">
+                                <strong>10. Vinculación de Cuadros de Flujo:</strong> Crea un vínculo dinámico de flujo de texto desde el cuadro de texto naranja de la página 2 hacia el cuadro de texto vacío ubicado al final del documento.
+                            </div>
+                        </div>
+                        <button class="btn-help" onclick="toggleHelp(10)">💡 Ayuda</button>
+                    </div>
+                    <div class="help-guide" id="help-10">
+                        <strong>Guía Técnica de Configuración:</strong>
+                        <ol>
+                            <li>Haz un clic sobre el borde exterior del cuadro de texto de fondo naranja situado en la página 2 para seleccionarlo de forma íntegra.</li>
+                            <li>Observa que aparecerá en la parte superior la pestaña emergente de contexto **Formato de forma** (o *Herramientas de dibujo*). Haz clic en ella.</li>
+                            <li>Busca el grupo de comandos denominado *Texto* y pulsa el comando **Crear vínculo** (tu puntero del mouse adoptará la forma gráfica de una taza o jarra contenedora).</li>
+                            <li>Desplázate sin hacer clics accidentales hasta la última página del documento y posiciona la jarra dentro del cuadro de texto flotante que se encuentra totalmente vacío. Haz un clic izquierdo para consolidar el enlace de desbordamiento de caracteres.</li>
+                        </ol>
+                    </div>
+                </li>
+
+                <!-- TAREA 11 -->
+                <li class="task-card">
+                    <div class="task-main">
+                        <div class="task-content">
+                            <input type="checkbox">
+                            <div class="task-text">
+                                <strong>11. Control de Contenido de Lista Desplegable:</strong> Al final de la página 1, inserta un <em>Control de contenido de lista desplegable</em> justo después del texto "Tipo de rutina sugerida:".
+                            </div>
+                        </div>
+                        <button class="btn-help" onclick="toggleHelp(11)">💡 Ayuda</button>
+                    </div>
+                    <div class="help-guide" id="help-11">
+                        <strong>Guía Técnica de Configuración:</strong>
+                        <ol>
+                            <li>Ubica la línea de texto "Tipo de rutina sugerida:" posicionada hacia la parte baja de la primera página del recurso.</li>
+                            <li>Haz un clic derecho inmediatamente después del signo de dos puntos (:), dejando un espacio en blanco regulatorio mediante la barra espaciadora.</li>
+                            <li>Ingresa a la pestaña **Programador** en el menú superior.</li>
+                            <li>En el bloque de comandos *Controles*, haz clic sobre el comando **Control de contenido de lista desplegable** (se diferencia por tener un gráfico que emula un mini formulario con filas horizontales y una flechita lateral apuntando hacia abajo). El marcador de posición aparecerá en pantalla.</li>
+                        </ol>
+                    </div>
+                </li>
+
+                <!-- TAREA 12 -->
+                <li class="task-card">
+                    <div class="task-main">
+                        <div class="task-content">
+                            <input type="checkbox">
+                            <div class="task-text">
+                                <strong>12. Configuración del Control Desplegable:</strong> Modifica las propiedades del control anterior: Título: <code>Rutinas</code>, y añade tres opciones de visualización: <code>Aeróbico</code>, <code>Anaeróbico</code> y <code>Flexibilidad</code>.
+                            </div>
+                        </div>
+                        <button class="btn-help" onclick="toggleHelp(12)">💡 Ayuda</button>
+                    </div>
+                    <div class="help-guide" id="help-12">
+                        <strong>Guía Técnica de Configuración:</strong>
+                        <ol>
+                            <li>Haz clic en el cuadro del control insertado previamente para seleccionarlo.</li>
+                            <li>En la pestaña **Programador** &gt; grupo *Controles*, pulsa sobre el comando **Propiedades**.</li>
+                            <li>En el cuadro emergente, ve a la casilla *Título:* e introduce el texto: <code>Rutinas</code>.</li>
+                            <li>Ve a la mitad inferior del formulario donde dice *Propiedades de la lista desplegable* y haz clic en el botón de la derecha **Agregar...**</li>
+                            <li>En el recuadro emergente digita en *Nombre para mostrar:* <code>Aeróbico</code>, el campo *Valor* se autorrellenará. Presiona Aceptar.</li>
+                            <li>Repite este paso pulsando el botón **Agregar...** para incluir la opción <code>Anaeróbico</code>, y una vez más para anexar el valor <code>Flexibilidad</code>. Valida y guarda presionando el botón Aceptar principal.</li>
+                        </ol>
+                    </div>
+                </li>
+
+                <!-- TAREA 13 -->
+                <li class="task-card">
+                    <div class="task-main">
+                        <div class="task-content">
+                            <input type="checkbox">
+                            <div class="task-text">
+                                <strong>13. Opciones Avanzadas de Autocorrección:</strong> Configura una regla global de reemplazo de texto para que cada vez que se escriba el código abreviado <code>dxt</code>, Word lo sustituya automáticamente por <code>deporte de alto rendimiento</code>.
+                            </div>
+                        </div>
+                        <button class="btn-help" onclick="toggleHelp(13)">💡 Ayuda</button>
+                    </div>
+                    <div class="help-guide" id="help-13">
+                        <strong>Guía Técnica de Configuración:</strong>
+                        <ol>
+                            <li>Ve a la parte superior izquierda de tu pantalla y haz clic en la pestaña **Archivo**, luego selecciona la opción final: **Opciones**.</li>
+                            <li>En el menú de categorías izquierdo del panel flotante, selecciona la sección **Revisión**.</li>
+                            <li>Haz clic sobre el botón grande destacado: **Opciones de Autocorrección...**</li>
+                            <li>Asegúrate de estar situado en la pestaña *Autocorrección*. En el casillero de entrada denominado **Reemplazar:** escribe el disparador en minúsculas: <code>dxt</code>.</li>
+                            <li>Haz clic en el casillero contiguo denominado **Con:** y digita minuciosamente la cadena completa de reemplazo: <code>deporte de alto rendimiento</code>.</li>
+                            <li>Haz un clic en el botón intermedio **Agregar** (o *Reemplazar* según aplique) y luego presiona Aceptar en los cuadros restantes de control.</li>
+                        </ol>
+                    </div>
+                </li>
+
+                <!-- TAREA 14 -->
+                <li class="task-card">
+                    <div class="task-main">
+                        <div class="task-content">
+                            <input type="checkbox">
+                            <div class="task-text">
+                                <strong>14. Marcación de Entrada de Índice:</strong> Busca el término técnico "Rendimiento óptimo" en la página 3 y márcalo como una entrada primaria de índice para la compilación analítica final.
+                            </div>
+                        </div>
+                        <button class="btn-help" onclick="toggleHelp(14)">💡 Ayuda</button>
+                    </div>
+                    <div class="help-guide" id="help-14">
+                        <strong>Guía Técnica de Configuración:</strong>
+                        <ol>
+                            <li>Ubica en el cuerpo textual de la página número 3 del archivo la frase literal "Rendimiento óptimo".</li>
+                            <li>Arrastra el cursor del mouse sobre ella para dejarla perfectamente seleccionada o sombreada.</li>
+                            <li>Ingresa a la pestaña **Referencias** de la barra de herramientas.</li>
+                            <li>Busca el grupo funcional denominado *Índice* (generalmente situado hacia el extremo derecho) y pulsa en el control **Marcar entrada** (atajo rápido de teclado Alt + Mayús + X).</li>
+                            <li>Verifica que la palabra seleccionada se muestre dentro de la casilla *Entrada:* y, sin realizar ninguna otra alteración formal, haz clic en el botón inferior **Marcar**. Cierra el cuadro flotante (se activarán los símbolos ocultos de formato ¶, puedes desactivarlos en Inicio si lo requieres).</li>
+                        </ol>
+                    </div>
+                </li>
+
+                <!-- TAREA 15 -->
+                <li class="task-card">
+                    <div class="task-main">
+                        <div class="task-content">
+                            <input type="checkbox">
+                            <div class="task-text">
+                                <strong>15. Inserción de Índice Automático:</strong> Ubícate en la sección final "Índice de Conceptos" e inserta el índice del documento utilizando el formato de diseño <strong>Clásico</strong> estructurado a <strong>2 columnas</strong>.
+                            </div>
+                        </div>
+                        <button class="btn-help" onclick="toggleHelp(15)">💡 Ayuda</button>
+                    </div>
+                    <div class="help-guide" id="help-15">
+                        <strong>Guía Técnica de Configuración:</strong>
+                        <ol>
+                            <li>Desplázate al cierre total del documento y haz clic izquierdo para posicionar tu cursor parpadeante justo debajo del encabezado que dice "Índice de Conceptos".</li>
+                            <li>Haz clic en la pestaña **Referencias**.</li>
+                            <li>En el bloque de opciones *Índice*, haz clic en el botón de comando principal: **Insertar índice** (el ícono muestra una hoja de cuaderno con líneas azules y una letra "I" verde).</li>
+                            <li>En la interfaz del asistente, localiza el menú desplegable inferior rotulado como *Formatos:* y cambia su valor seleccionando la opción **Clásico**.</li>
+                            <li>Asegúrate de que en el casillero numérico superior de *Columnas:* esté fijado el valor en **2** columnas. Deja el resto de componentes predeterminados y confirma presionando **Aceptar**.</li>
+                        </ol>
+                    </div>
+                </li>
+
+                <!-- TAREA 16 -->
+                <li class="task-card">
+                    <div class="task-main">
+                        <div class="task-content">
+                            <input type="checkbox">
+                            <div class="task-text">
+                                <strong>16. Personalización de Identidad de Auditoría:</strong> Modifica las opciones generales de la aplicación para este archivo cambiando el Nombre de usuario a <code>Auditor TBox</code> y las Iniciales a <code>AT</code>.
+                            </div>
+                        </div>
+                        <button class="btn-help" onclick="toggleHelp(16)">💡 Ayuda</button>
+                    </div>
+                    <div class="help-guide" id="help-16">
+                        <strong>Guía Técnica de Configuración:</strong>
+                        <ol>
+                            <li>Haz clic en la pestaña superior **Archivo** &gt; ve al menú final e ingresa en **Opciones**.</li>
+                            <li>Asegúrate de permanecer en el menú de categorías inicial denominado **General**.</li>
+                            <li>Baja en el panel derecho hasta encontrar el bloque titulado con claridad: *Personalizar la copia de Microsoft Office*.</li>
+                            <li>Ubica la caja de texto editable correspondiente al campo **Nombre de usuario:**, borra el texto de fábrica e ingresa: <code>Auditor TBox</code>.</li>
+                            <li>Ubica la caja contigua **Iniciales:**, limpia el contenido previo y escribe el valor en mayúsculas fijas: <code>AT</code>. Pulsa el botón inferior **Aceptar** para registrar el cambio de metadatos de autoría.</li>
+                        </ol>
+                    </div>
+                </li>
+
+                <!-- TAREA 17 -->
+                <li class="task-card">
+                    <div class="task-main">
+                        <div class="task-content">
+                            <input type="checkbox">
+                            <div class="task-text">
+                                <strong>17. Protección de Solo Lectura Avanzada:</strong> Configura las restricciones de edición del documento bajo la directiva estricta de <strong>Sin cambios (Solo lectura)</strong>, permitiendo únicamente excepciones al grupo de control.
+                            </div>
+                        </div>
+                        <button class="btn-help" onclick="toggleHelp(17)">💡 Ayuda</button>
+                    </div>
+                    <div class="help-guide" id="help-17">
+                        <strong>Guía Técnica de Configuración:</strong>
+                        <ol>
+                            <li>Dirígete a la pestaña superior **Revisar**.</li>
+                            <li>En el grupo derecho de *Proteger*, haz un clic en el control **Restringir edición**.</li>
+                            <li>Ve al panel que se despliega en el lateral derecho del espacio de trabajo de Word y concéntrate en el apartado número **2. Restricciones de edición**.</li>
+                            <li>Activa la casilla de verificación selectiva que dicta: *Permitir solo este tipo de edición en el documento:*.</li>
+                            <li>Inmediatamente abajo, abre el menú desplegable que se ha habilitado y selecciona con precisión quirúrgica la directiva protectora: **Sin cambios (Solo lectura)**. (No ejecutes el botón de aplicar contraseña a menos que la rúbrica exija una clave explícita). Cerciórate de que los cambios queden aplicados.</li>
+                        </ol>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="nav-actions">
+            <a href="index.html" class="back-link">&larr; Volver al Panel General</a>
+            <button class="btn btn-primary" style="background: var(--success);" onclick="concluirReto()">Concluir Evaluación</button>
+        </div>
+    </div>
+
+    <script>
+        // Lógica del Cronómetro Ajustado a 15 Minutos Estrictos
+        let timeInSeconds = 15 * 60;
+        const timerElement = document.getElementById("timer");
+
+        const countdown = setInterval(() => {
+            let minutes = Math.floor(timeInSeconds / 60);
+            let seconds = timeInSeconds % 60;
+
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+            timerElement.innerText = `${minutes}:${seconds}`;
+
+            if (timeInSeconds <= 0) {
+                clearInterval(countdown);
+                timerElement.style.background = "rgba(239, 68, 68, 0.2)";
+                timerElement.style.color = "#ef4444";
+                timerElement.style.borderColor = "#ef4444";
+                timerElement.innerText = "Tiempo Expirado";
+            }
+            timeInSeconds--;
+        }, 1000);
+
+        // Control de Visualización Interactiva de Guías de Ayuda Individuales
+        function toggleHelp(id) {
+            const el = document.getElementById(`help-${id}`);
+            if (el.style.display === "block") {
+                el.style.display = "none";
+            } else {
+                el.style.display = "block";
+            }
+        }
+
+        function concluirReto() {
+            clearInterval(countdown);
+            const container = document.getElementById("main-container");
+            container.innerHTML = `
+                <div style="text-align: center; padding: 4rem 0;">
+                    <h2 style="color: var(--success); margin-bottom: 1.5rem; font-size: 2rem;">¡Proyecto Integrador Finalizado!</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 2.5rem; line-height: 1.8; max-width: 600px; margin-left: auto; margin-right: auto;">
+                        El set completo de 17 competencias críticas de nivel Expert en Word 2019 ha sido evaluado bajo la presión de tiempo asignada. ¡Buen trabajo!
+                    </p>
+                    <a href="index.html" class="btn btn-primary" style="padding: 0.8rem 2rem;">Regresar al Panel Principal</a>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

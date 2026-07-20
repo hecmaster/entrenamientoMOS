@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafío Cronometrado: Certificación Avanzada MOS Word</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ms: {
+                            blue: '#0078d4',
+                            darkBlue: '#005a9e',
+                            grayBg: '#f8f9fa',
+                            textDark: '#111827',
+                            border: '#e5e7eb',
+                            success: '#107c41'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .task-checked { background-color: #f0fdf4; border-color: #107c41; opacity: 0.85; transform: scale(0.99); }
+        .task-checked h4, .task-checked p, .task-checked span, .task-checked li { text-decoration: line-through; color: #6b7280; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-gray-100 to-blue-50 font-sans text-ms-textDark antialiased p-4 md:p-8 min-h-screen">
+
+    <div class="max-w-6xl mx-auto bg-white/80 backdrop-blur-md border border-ms-border rounded-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row min-h-[850px]">
+        
+        <!-- PANEL IZQUIERDO: CONTROLES E INSTRUCCIONES -->
+        <div class="w-full lg:w-2/5 bg-gradient-to-b from-slate-900 via-slate-800 to-blue-950 p-6 md:p-8 text-white flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-700">
+            <div>
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-2">
+                        <img src="https://img.icons8.com/color/48/microsoft.png" alt="Microsoft Logo" class="w-7 h-7"/>
+                        <span class="text-[10px] font-black bg-blue-600/30 text-blue-400 border border-blue-500/30 px-2.5 py-1 rounded-full uppercase tracking-widest">Nivel Experto</span>
+                    </div>
+                    <span class="text-gray-400 text-xs font-mono">ID: challengeC.html</span>
+                </div>
+                
+                <h2 class="text-2xl font-black tracking-tight leading-tight mb-2">⚡ Sprint de Certificación:<br><span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Documento Corporativo Pro</span></h2>
+                <p class="text-slate-400 text-xs leading-relaxed mb-6">Demuestra agilidad y dominio técnico absoluto bajo presión. Cuentas con un entorno estrictamente cronometrado de 15 minutos.</p>
+
+                <!-- CRONÓMETRO OPTIMIZADO A 15 MINUTOS -->
+                <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-4 flex items-center justify-between mb-6 shadow-inner">
+                    <div class="flex items-center gap-3">
+                        <img src="https://img.icons8.com/fluency/48/stopwatch.png" alt="Timer" class="w-8 h-8 animate-pulse"/>
+                        <div>
+                            <p class="text-[10px] uppercase font-bold tracking-wider text-slate-400">Tiempo Límite</p>
+                            <p class="text-xs text-red-400 font-medium font-mono">Penalización por retraso</p>
+                        </div>
+                    </div>
+                    <span id="global-timer" class="font-mono text-3xl text-red-400 font-black tracking-wider">15:00</span>
+                </div>
+
+                <!-- DESCARGA DE RECURSOS DEL SERVIDOR -->
+                <div class="bg-blue-950/40 border border-blue-800/40 rounded-2xl p-4 space-y-3">
+                    <div class="flex items-center gap-2 text-blue-400">
+                        <img src="https://img.icons8.com/fluency/48/folder-invoices.png" alt="Recursos" class="w-5 h-5"/>
+                        <h3 class="text-xs font-bold uppercase tracking-wider">Recursos Obligatorios del Servidor</h3>
+                    </div>
+                    <p class="text-[11px] text-slate-300 leading-relaxed">Descarga los archivos necesarios para iniciar el sprint. Abre el documento base en Word y realiza todas las configuraciones solicitadas sobre él:</p>
+                    
+                    <div class="flex flex-col gap-2 pt-1">
+                        <!-- BOTÓN TEXTO BASE DOCX -->
+                        <a href="docs/Texto_Base.docx" download="Texto_Base.docx" class="w-full inline-flex items-center justify-center gap-2 bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-md transition-all transform hover:-translate-y-0.5 border border-slate-600">
+                            <img src="https://img.icons8.com/fluent/48/microsoft-word-2019.png" alt="Word" class="w-4 h-4"/>
+                            1. Descargar Texto_Base.docx
+                        </a>
+                        <!-- BOTÓN EXCEL CORRESPONDENCIA -->
+                        <a href="docs/Base_Clientes.xlsx" download="Base_Clientes.xlsx" class="w-full inline-flex items-center justify-center gap-2 bg-ms-blue hover:bg-ms-darkBlue text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5">
+                            <img src="https://img.icons8.com/fluent/48/microsoft-excel-2019.png" alt="Excel" class="w-4 h-4"/>
+                            2. Descargar Base_Clientes.xlsx
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOTA METODOLÓGICA -->
+            <div class="mt-8 pt-4 border-t border-slate-800 text-[11px] text-slate-400 leading-relaxed">
+                📢 <strong class="text-slate-200">Indicaciones de maquetación:</strong> No generes texto aleatorio. Abre <code class="bg-slate-800 px-1 rounded text-cyan-400 font-mono">Texto_Base.docx</code> y manipula su contenido preexistente para estructurar el proyecto en un total de <strong>4 páginas independientes</strong> usando saltos técnicos.
+            </div>
+        </div>
+
+        <!-- PANEL DERECHO: INTERFAZ DE TAREAS (20 ITEMS / 4 FASES) -->
+        <div class="w-full lg:w-3/5 flex flex-col bg-white">
+            
+            <!-- FILTROS EN PESTAÑAS MODERNAS -->
+            <div class="bg-slate-50 border-b border-ms-border p-4 flex flex-wrap gap-2 sticky top-0 z-10 backdrop-blur-sm bg-white/90">
+                <button onclick="filterPhase('all', this)" class="phase-tab bg-slate-900 text-white text-xs font-bold px-3 py-2 rounded-xl transition-all shadow-md">Todas (20)</button>
+                <button onclick="filterPhase('fase1', this)" class="phase-tab bg-white text-gray-600 border border-ms-border text-xs font-semibold px-3 py-2 rounded-xl hover:bg-gray-100 transition-all flex items-center gap-1.5">
+                    <img src="https://img.icons8.com/color/48/settings.png" class="w-3.5 h-3.5"/> F1: Entorno
+                </button>
+                <button onclick="filterPhase('fase2', this)" class="phase-tab bg-white text-gray-600 border border-ms-border text-xs font-semibold px-3 py-2 rounded-xl hover:bg-gray-100 transition-all flex items-center gap-1.5">
+                    <img src="https://img.icons8.com/color/48/grid.png" class="w-3.5 h-3.5"/> F2: Estructura
+                </button>
+                <button onclick="filterPhase('fase3', this)" class="phase-tab bg-white text-gray-600 border border-ms-border text-xs font-semibold px-3 py-2 rounded-xl hover:bg-gray-100 transition-all flex items-center gap-1.5">
+                    <img src="https://img.icons8.com/color/48/image.png" class="w-3.5 h-3.5"/> F3: Objetos
+                </button>
+                <button onclick="filterPhase('fase4', this)" class="phase-tab bg-white text-gray-600 border border-ms-border text-xs font-semibold px-3 py-2 rounded-xl hover:bg-gray-100 transition-all flex items-center gap-1.5">
+                    <img src="https://img.icons8.com/color/48/shield.png" class="w-3.5 h-3.5"/> F4: Automatización
+                </button>
+            </div>
+
+            <!-- CONTENEDOR SCRIPT DE TARJETAS -->
+            <div class="p-6 overflow-y-auto max-h-[620px] custom-scrollbar space-y-4 flex-1 bg-gray-50/50" id="tasks-container">
+
+                <!-- FASE 1 -->
+                <div class="task-card border border-ms-border rounded-2xl p-4 flex items-start gap-4 bg-white hover:shadow-md transition-all duration-200" data-phase="fase1">
+                    <input type="checkbox" onchange="toggleTask(this)" class="task-box mt-1 w-4 h-4 text-ms-success rounded border-gray-300 focus:ring-ms-success transition-all cursor-pointer">
+                    <div class="flex-1 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[9px] font-bold bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full font-mono uppercase">Fase 1 · Configuración Global</span>
+                            <a href="helpC.html#fase1" target="_blank" class="text-[11px] font-bold text-ms-blue hover:text-ms-darkBlue flex items-center gap-1 bg-blue-50 px-2 py-1 rounded-lg transition-colors">
+                                💡 Guía F1
+                            </a>
+                        </div>
+                        <h4 class="text-xs font-black text-slate-900 uppercase tracking-wide">01-05: Entorno e Identidad sobre Texto_Base</h4>
+                        <ul class="text-xs text-gray-600 space-y-2 list-decimal pl-4 leading-relaxed">
+                            <li><strong>[1]</strong> Abre <code class="bg-gray-100 px-1 rounded">Texto_Base.docx</code> y modifica el idioma de revisión predeterminado exclusivamente para este documento a <em>Español (Internacional)</em>.</li>
+                            <li><strong>[2]</strong> Agrega de forma fija el comando avanzado <em>"Ver Macros"</em> a tu barra de herramientas de acceso rápido superior en la aplicación.</li>
+                            <li><strong>[3]</strong> Configura una paleta de colores de tema personalizada utilizando 4 variantes de acentos corporativos y guárdala con el nombre <code class="bg-gray-100 px-1 rounded">Mosaico_Corp</code>.</li>
+                            <li><strong>[4]</strong> Personaliza las fuentes del tema del documento asignando <em>Segoe UI Semibold</em> para los títulos y <em>Segoe UI Light</em> para todo el cuerpo de texto.</li>
+                            <li><strong>[5]</strong> Modifica las opciones de visualización de Word para forzar la visualización permanente de marcas de párrafo (¶) y saltos de formato ocultos.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- FASE 2 -->
+                <div class="task-card border border-ms-border rounded-2xl p-4 flex items-start gap-4 bg-white hover:shadow-md transition-all duration-200" data-phase="fase2">
+                    <input type="checkbox" onchange="toggleTask(this)" class="task-box mt-1 w-4 h-4 text-ms-success rounded border-gray-300 focus:ring-ms-success transition-all cursor-pointer">
+                    <div class="flex-1 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[9px] font-bold bg-blue-50 text-ms-blue px-2 py-0.5 rounded-full font-mono uppercase">Fase 2 · Maquetación</span>
+                            <a href="helpC.html#fase2" target="_blank" class="text-[11px] font-bold text-ms-blue hover:text-ms-darkBlue flex items-center gap-1 bg-blue-50 px-2 py-1 rounded-lg transition-colors">
+                                💡 Guía F2
+                            </a>
+                        </div>
+                        <h4 class="text-xs font-black text-slate-900 uppercase tracking-wide">06-10: Distribución Estructurada del Contenido</h4>
+                        <ul class="text-xs text-gray-600 space-y-2 list-decimal pl-4 leading-relaxed">
+                            <li><strong>[6]</strong> Establece una configuración de <em>Márgenes Simétricos</em> con un valor exacto de <code class="bg-gray-100 px-1 rounded">3.0 cm</code> en el margen interior de encuadernación de las hojas.</li>
+                            <li><strong>[7]</strong> Inserta un salto de sección de <em>Página Siguiente</em> justo al finalizar los párrafos de la portada para aislarla por completo del desarrollo.</li>
+                            <li><strong>[8]</strong> Ubícate en la sección donde se encuentra el bloque de datos técnicos (Página 3) y cámbiala a orientación <em>Horizontal</em>, manteniendo las demás páginas en vertical.</li>
+                            <li><strong>[9]</strong> Rompe la vinculación de los pies de página (Desvincular al anterior) entre la sección de la portada (Sección 1) y el cuerpo de desarrollo (Sección 2).</li>
+                            <li><strong>[10]</strong> Configura los números de página: haz que el desglose de desarrollo (Página 2) inicie en formato romano <code class="bg-gray-100 px-1 rounded">i, ii, iii</code>, y que la página horizontal (Página 3) reinicie el conteo desde el número <code class="bg-gray-100 px-1 rounded">1</code> arábigo.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- FASE 3 -->
+                <div class="task-card border border-ms-border rounded-2xl p-4 flex items-start gap-4 bg-white hover:shadow-md transition-all duration-200" data-phase="fase3">
+                    <input type="checkbox" onchange="toggleTask(this)" class="task-box mt-1 w-4 h-4 text-ms-success rounded border-gray-300 focus:ring-ms-success transition-all cursor-pointer">
+                    <div class="flex-1 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[9px] font-bold bg-purple-50 text-purple-700 px-2 py-0.5 rounded-full font-mono uppercase">Fase 3 · Elementos y Datos</span>
+                            <a href="helpC.html#fase3" target="_blank" class="text-[11px] font-bold text-ms-blue hover:text-ms-darkBlue flex items-center gap-1 bg-blue-50 px-2 py-1 rounded-lg transition-colors">
+                                💡 Guía F3
+                            </a>
+                        </div>
+                        <h4 class="text-xs font-black text-slate-900 uppercase tracking-wide">11-15: Objetos, Tablas del Archivo y Referencias</h4>
+                        <ul class="text-xs text-gray-600 space-y-2 list-disc pl-4 leading-relaxed">
+                            <li><strong>[11]</strong> Selecciona la tabla de datos incluida en el documento base y configura su fila de títulos con la propiedad técnica <em>"Repetir filas de título"</em> si llega a dividirse en dos páginas.</li>
+                            <li><strong>[12]</strong> Agrega rótulos automáticos normalizados (Títulos de tipo Ilustración y Tabla) a las estructuras visuales mediante el menú contextual <em>Insertar Título</em>.</li>
+                            <li><strong>[13]</strong> Compila una <em>Tabla de Ilustraciones</em> automatizada utilizando los rótulos creados y ubícala en la sección de preliminares (Página 2).</li>
+                            <li><strong>[14]</strong> Inserta una nota al pie en uno de los términos científicos del texto, modificando la numeración regular por un símbolo de carácter especial.</li>
+                            <li><strong>[15]</strong> Selecciona y realiza el marcado de 3 términos clave dentro de la lectura para compilar e insertar un <em>Índice Alfabético</em> formal de dos columnas en la página final (Página 4).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- FASE 4 -->
+                <div class="task-card border border-ms-border rounded-2xl p-4 flex items-start gap-4 bg-white hover:shadow-md transition-all duration-200" data-phase="fase4">
+                    <input type="checkbox" onchange="toggleTask(this)" class="task-box mt-1 w-4 h-4 text-ms-success rounded border-gray-300 focus:ring-ms-success transition-all cursor-pointer">
+                    <div class="flex-1 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[9px] font-bold bg-green-50 text-ms-success px-2 py-0.5 rounded-full font-mono uppercase">Fase 4 · Automatización</span>
+                            <a href="helpC.html#fase4" target="_blank" class="text-[11px] font-bold text-ms-blue hover:text-ms-darkBlue flex items-center gap-1 bg-blue-50 px-2 py-1 rounded-lg transition-colors">
+                                💡 Guía F4
+                            </a>
+                        </div>
+                        <h4 class="text-xs font-black text-slate-900 uppercase tracking-wide">16-20: Vinculación, Automatización y Seguridad</h4>
+                        <ul class="text-xs text-gray-600 space-y-2 list-decimal pl-4 leading-relaxed">
+                            <li><strong>[16]</strong> Ubica el espacio asignado en el texto para firmas, inserta un control de contenido de <em>Lista Desplegable</em> y activa en sus propiedades la restricción: <em>"No se puede eliminar el control"</em>.</li>
+                            <li><strong>[17]</strong> Ejecuta la combinación de correspondencia vinculando la fuente externa <code class="bg-gray-100 px-1 rounded">Base_Clientes.xlsx</code> insertando dos campos combinados en el párrafo de cierre.</li>
+                            <li><strong>[18]</strong> Graba una macro funcional para automatizar la aplicación de un estilo visual a tu elección y asegúrate de guardarla exclusivamente en <em>"Este documento (Texto_Base)"</em>.</li>
+                            <li><strong>[19]</strong> Protege el archivo activando restricciones de edición en el panel lateral, limitando los cambios del usuario únicamente a <em>"Rellenando formularios"</em>.</li>
+                            <li><strong>[20]</strong> Efectúa el proceso de guardado definitivo con la estructura de extensión compatible para macros: <code class="bg-gray-100 px-1 rounded">Documento habilitado para macros de Word (*.docm)</code>.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- FOOTER DE CONTROL GENERAL -->
+            <div class="bg-slate-50 p-4 px-6 border-t border-ms-border flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <span id="completion-badge" class="text-xs font-black bg-gray-200 text-gray-700 px-3 py-1.5 rounded-xl font-mono">0 / 4 Fases Listas</span>
+                </div>
+                <div class="flex gap-2 w-full sm:w-auto">
+                    <a href="index.html" class="w-1/3 sm:w-auto bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold text-xs px-4 py-2.5 rounded-xl text-center transition-colors">
+                        Panel
+                    </a>
+                    <button id="btn-submit" class="w-2/3 sm:w-auto bg-ms-success hover:bg-green-800 text-white font-bold text-xs px-5 py-2.5 rounded-xl shadow-md transition-all">
+                        Finalizar Registro
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CONTROL SCRIPT -->
+    <script {current_year="2026"}>
+        let secondsLeft = 15 * 60;
+        const display = document.getElementById('global-timer');
+
+        const countdown = setInterval(() => {
+            let min = Math.floor(secondsLeft / 60);
+            let sec = secondsLeft % 60;
+
+            min = min < 10 ? '0' + min : min;
+            sec = sec < 10 ? '0' + sec : sec;
+
+            display.textContent = `${min}:${sec}`;
+
+            if (secondsLeft <= 0) {
+                clearInterval(countdown);
+                display.textContent = "00:00";
+                display.className = "font-mono text-3xl text-white bg-red-600 px-3 py-1 rounded-xl animate-pulse font-black";
+            }
+            secondsLeft--;
+        }, 1000);
+
+        function filterPhase(phase, btn) {
+            const cards = document.querySelectorAll('.task-card');
+            const tabs = document.querySelectorAll('.phase-tab');
+            
+            tabs.forEach(t => t.className = "phase-tab bg-white text-gray-600 border border-ms-border text-xs font-semibold px-3 py-2 rounded-xl hover:bg-gray-100 transition-all flex items-center gap-1.5");
+            btn.className = "phase-tab bg-slate-900 text-white text-xs font-bold px-3 py-2 rounded-xl transition-all shadow-md flex items-center gap-1.5";
+
+            cards.forEach(c => {
+                if (phase === 'all' || c.getAttribute('data-phase') === phase) {
+                    c.style.display = 'flex';
+                } else {
+                    c.style.display = 'none';
+                }
+            });
+        }
+
+        function toggleTask(cb) {
+            const card = cb.closest('.task-card');
+            if (cb.checked) card.classList.add('task-checked');
+            else card.classList.remove('task-checked');
+
+            const checkedCount = document.querySelectorAll('.task-box:checked').length;
+            const badge = document.getElementById('completion-badge');
+            badge.textContent = `${checkedCount} / 4 Fases Listas`;
+
+            if (checkedCount === 4) {
+                badge.className = "text-xs font-black bg-ms-success text-white px-3 py-1.5 rounded-xl font-mono animate-bounce";
+            } else {
+                badge.className = "text-xs font-black bg-gray-200 text-gray-700 px-3 py-1.5 rounded-xl font-mono";
+            }
+        }
+
+        document.getElementById('btn-submit').addEventListener('click', () => {
+            const done = document.querySelectorAll('.task-box:checked').length;
+            if(done < 4) {
+                alert('No has completado el registro de auditoría de las 4 fases obligatorias. Evalúa el avance técnico.');
+            } else {
+                alert('¡Felicidades! Desafío de velocidad sobre el archivo base registrado exitosamente.');
+                window.location.href = "index.html";
+            }
+        });
+    </script>
+</body>
+</html>

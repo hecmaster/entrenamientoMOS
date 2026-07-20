@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOS Word Expert - Quiz 4: Seguridad y Revisión Avanzada</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0b0f19 0%, #111827 100%);
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --card-border: rgba(255, 255, 255, 0.06);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --word-blue: #1d4ed8;
+            --word-blue-glow: #60a5fa;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .quiz-container {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 800px;
+            width: 100%;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 1rem;
+        }
+
+        header h1 {
+            font-size: 1.25rem;
+            color: var(--word-blue-glow);
+        }
+
+        #progress {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .question-section h2 {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-btn {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background: rgba(96, 165, 250, 0.08);
+            border-color: var(--word-blue-glow);
+            transform: translateX(4px);
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        .feedback-box {
+            display: none;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .feedback-box.correct {
+            display: block;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--success);
+            color: #a7f3d0;
+        }
+
+        .feedback-box.incorrect {
+            display: block;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid var(--error);
+            color: #fca5a5;
+        }
+
+        .nav-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+        }
+
+        .next-btn {
+            background: var(--word-blue);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: none;
+        }
+
+        .next-btn:hover {
+            background: #2563eb;
+        }
+
+        .score-screen {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .score-screen h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--word-blue-glow);
+        }
+
+        .score-screen p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .action-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .btn-action {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--word-blue);
+            color: white;
+            border: none;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--card-border);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container" id="quiz-container">
+        <header>
+            <h1>Quiz 4: Seguridad, Revisiones y Restricciones</h1>
+            <div id="progress">Pregunta 1 de 20</div>
+        </header>
+
+        <div id="question-area">
+            <div class="question-section">
+                <h2 id="question-text">Cargando pregunta...</h2>
+                <div class="options-grid" id="options-container">
+                    <!-- Opciones inyectadas dinámicamente -->
+                </div>
+            </div>
+
+            <div id="feedback" class="feedback-box"></div>
+        </div>
+
+        <div class="nav-actions">
+            <a href="index.html" class="back-link">&larr; Salir al Panel</a>
+            <button id="next-button" class="next-btn" onclick="nextQuestion()">Siguiente &rarr;</button>
+        </div>
+    </div>
+
+    <script>
+        // Estructura de base de datos base (La opción correcta inicial es el índice 0)
+        const questions = [
+            {
+                q: "1. ¿Qué sucede con las marcas de revisión existentes en un documento cuando se utiliza la función 'Bloquear el control de cambios' mediante una contraseña?",
+                a: [
+                    "Las marcas existentes se mantienen visibles, pero ningún usuario puede aceptarlas ni rechazarlas sin la contraseña.",
+                    "Las marcas de revisión se consolidan y aceptan automáticamente en el texto.",
+                    "El historial se oculta por completo hasta que se introduzca la clave de desbloqueo.",
+                    "Se guardan de forma externa en un registro temporal del sistema."
+                ],
+                correct: 0,
+                fb: "¡Correcto! El bloqueo del control de cambios impide de manera estricta que otros editores desactiven el rastreo de cambios o alteren las revisiones históricas ya documentadas."
+            },
+            {
+                q: "2. Al configurar Restricciones de edición, ¿qué opción debe elegir si desea que los destinatarios solo puedan insertar anotaciones marginales sin alterar una sola palabra de los párrafos originales?",
+                a: [
+                    "Comentarios.",
+                    "Sin cambios (Solo lectura).",
+                    "Rellenando formularios.",
+                    "Marcas de revisión."
+                ],
+                correct: 0,
+                fb: "¡Excelente! La restricción de tipo 'Comentarios' bloquea la edición del cuerpo principal del archivo, permitiendo únicamente el uso de globos o burbujas de comentarios adicionales."
+            },
+            {
+                q: "3. ¿Qué herramienta de Inspección avanzada de Word permite eliminar permanentemente propiedades del archivo, nombres de autores, rutas de red y metadatos ocultos antes de su distribución?",
+                a: [
+                    "Inspector de documentos.",
+                    "Comprobar accesibilidad.",
+                    "Comprobar compatibilidad.",
+                    "Administrador de versiones recuperadas."
+                ],
+                correct: 0,
+                fb: "¡Muy bien! El Inspector de documentos examina datos internos ocultos y permite limpiar la información personal que suele adjuntarse automáticamente a las propiedades de Office."
+            },
+            {
+                q: "4. En la configuración avanzada del Control de cambios, ¿qué elemento controla específicamente la forma en que se muestran las líneas añadidas (por ejemplo, con un borde vertical al margen izquierdo)?",
+                a: [
+                    "Líneas cambiadas.",
+                    "Inserciones.",
+                    "Eliminaciones.",
+                    "Globos de revisión."
+                ],
+                correct: 0,
+                fb: "¡Exacto! El campo 'Líneas cambiadas' define la posición y el color de las barras marginales que alertan visualmente que una línea o párrafo ha sufrido modificaciones."
+            },
+            {
+                q: "5. Si cifra un documento de Word mediante la ruta 'Información > Proteger documento > Cifrar con contraseña', ¿qué consecuencia directa tiene si un usuario olvida dicha clave?",
+                a: [
+                    "El documento no se podrá recuperar de ninguna forma convencional, ya que Microsoft no almacena la contraseña.",
+                    "El archivo se abre automáticamente en modo de Solo lectura restringido.",
+                    "Se puede restaurar solicitando un código al administrador del dominio local.",
+                    "Las macros incrustadas se encargan de omitir el cifrado después de tres intentos."
+                ],
+                correct: 0,
+                fb: "¡Correcto! El cifrado AES de Word es de protección estricta. Olvidar la clave significa perder permanentemente el acceso legítimo al archivo."
+            },
+            {
+                q: "6. Al utilizar la herramienta 'Comparar' para cotejar dos versiones de un archivo, ¿dónde se recomienda configurar por defecto la visualización de los cambios para no alterar los archivos fuente?",
+                a: [
+                    "En un nuevo documento.",
+                    "En el documento original.",
+                    "En el documento revisado.",
+                    "En una plantilla externa compartida."
+                ],
+                correct: 0,
+                fb: "¡Muy bien! Generar las diferencias en un 'Nuevo documento' protege la integridad de las dos versiones comparadas y consolida los cambios en un tercer archivo limpio."
+            },
+            {
+                q: "7. ¿Cuál es la principal diferencia entre la restricción de edición 'Marcas de revisión' y activar simplemente el Control de Cambios de forma manual?",
+                a: [
+                    "La restricción impide físicamente que el usuario desactive el rastreo de cambios, forzando a que toda modificación quede registrada de manera obligatoria.",
+                    "La restricción oculta los colores de los autores para mayor privacidad.",
+                    "El control de cambios manual requiere la instalación de un complemento web adicional.",
+                    "La restricción convierte de inmediato el texto a formato de bloque XML estático."
+                ],
+                correct: 0,
+                fb: "¡Excelente análisis! Al restringir la edición con formato de marcas, la opción de apagar el control de cambios queda deshabilitada para los usuarios no autorizados."
+            },
+            {
+                q: "8. Al auditar la accesibilidad de un documento extenso, ¿qué error grave reportará la herramienta 'Comprobar accesibilidad' sobre los objetos visuales?",
+                a: [
+                    "La falta de texto alternativo (Alt Text) en imágenes, gráficos o tablas.",
+                    "El uso de tipografías con colores corporativos personalizados.",
+                    "Guardar el archivo en una ruta local en lugar de almacenamiento en la nube.",
+                    "Insertar hipervínculos que redirijan a sitios web externos."
+                ],
+                correct: 0,
+                fb: "¡Exacto! El texto alternativo es indispensable para que los lectores de pantalla puedan describir con precisión los elementos visuales a personas con discapacidades."
+            },
+            {
+                q: "9. ¿Qué función avanzada permite fusionar en un único lienzo interactivo las sugerencias y marcas de revisión realizadas por cinco editores distintos sobre copias separadas del mismo archivo?",
+                a: [
+                    "Combinar (pestaña Revisar > grupo Comparar > Combinar).",
+                    "Cifrado simétrico de coautoría.",
+                    "Vincular estilos jerárquicos.",
+                    "Consolidación de texto dinámico."
+                ],
+                correct: 0,
+                fb: "¡Soberbio! A diferencia de 'Comparar', la opción 'Combinar' toma las revisiones de múltiples fuentes y las unifica ordenadamente en un único archivo maestro para su posterior aprobación."
+            },
+            {
+                q: "10. Dentro del panel de Restricciones de edición, ¿qué acción es obligatoria para aplicar de forma efectiva las excepciones de usuario y el bloqueo estricto en el documento?",
+                a: [
+                    "Hacer clic en el botón 'Sí, aplicar la protección'.",
+                    "Guardar el archivo como una plantilla dotm.",
+                    "Activar el modo de diseño en la pestaña Programador.",
+                    "Cerrar la sesión de Microsoft Office activa."
+                ],
+                correct: 0,
+                fb: "¡Así es! Las configuraciones de restricciones permanecen inactivas hasta que se presiona el botón de confirmación final y se introduce (o no) una contraseña."
+            },
+            {
+                q: "11. Cuando se comparte un archivo y se configura la opción 'Restringir edición > Sin cambios (Solo lectura)', ¿cómo se define técnicamente un área para que un colega específico sí pueda modificarla?",
+                a: [
+                    "Seleccionando el texto del párrafo y marcando el nombre del usuario en la sección 'Excepciones'.",
+                    "Insertando un control de texto enriquecido protegido por contraseña.",
+                    "Creando una sección de página nueva con un salto continuo exclusivo.",
+                    "Cambiando el color de fuente del párrafo seleccionado a azul estándar."
+                ],
+                correct: 0,
+                fb: "¡Perfecto! Al seleccionar un fragmento de texto e indicar excepciones (por correo o grupo), Word mantendrá bloqueado todo el documento excepto esas zonas asignadas."
+            },
+            {
+                q: "12. ¿Qué utilidad tiene activar la casilla de verificación 'Solo lectura recomendado' en las opciones de guardado de un documento?",
+                a: [
+                    "Sugiere al usuario abrir el documento sin permisos de escritura, pero le permite elegir editarlo de forma voluntaria.",
+                    "Bloquea criptográficamente el archivo impidiendo modificaciones de raíz.",
+                    "Fuerza a que el documento solo pueda visualizarse en la interfaz web de Office.",
+                    "Elimina automáticamente el diccionario de corrección ortográfica."
+                ],
+                correct: 0,
+                fb: "¡Correcto! Es una protección de cortesía. Advierte al usuario que es preferible leer el documento, pero no impone un bloqueo estricto por contraseña."
+            },
+            {
+                q: "13. Al realizar una revisión ortográfica avanzada, ¿qué función le permite a Word autocorregir una palabra mal escrita inmediatamente al presionar la barra espaciadora?",
+                a: [
+                    "Opciones de Autocorrección.",
+                    "Diccionario personalizado activo.",
+                    "Omitir siempre términos técnicos.",
+                    "Revisión en segundo plano condicional."
+                ],
+                correct: 0,
+                fb: "¡Excelente! La lista de Autocorrección almacena pares de cadenas de texto para automatizar la sustitución de errores tipográficos en tiempo real."
+            },
+            {
+                q: "14. ¿Qué tipo de marcas de revisión se visualizan de manera predeterminada en la pantalla cuando se selecciona la opción de visualización 'Revisiones sencillas' (Simple Markup)?",
+                a: [
+                    "Una línea vertical discreta en el margen izquierdo del párrafo modificado, ocultando el ruido del texto tachado.",
+                    "Todos los globos detallados de inserción y eliminación al margen derecho.",
+                    "El texto original sin una sola modificación aplicada.",
+                    "Únicamente los cambios referentes a estilos de fuente y formatos de color."
+                ],
+                correct: 0,
+                fb: "¡Muy bien! Las revisiones sencillas limpian el lienzo ocultando las tachaduras de texto, mostrando una barra roja marginal que indica que esa zona fue alterada."
+            },
+            {
+                q: "15. Para asegurar que un documento mantenga un diseño consistente en computadoras que no disponen de las tipografías premium utilizadas en su diseño, ¿qué opción avanzada de guardado debe activarse?",
+                a: [
+                    "Incrustar fuentes en el archivo.",
+                    "Optimizar diseño para compatibilidad CSS.",
+                    "Guardar como formato de texto enriquecido (.rtf).",
+                    "Comprimir archivos multimedia incrustados."
+                ],
+                correct: 0,
+                fb: "¡Brillante! Incrustar las fuentes adjunta los archivos vectoriales tipográficos dentro del propio archivo .docx, garantizando consistencia estética global."
+            },
+            {
+                q: "16. En el Control de Cambios, ¿qué herramienta abre un panel flotante o lateral que expone un listado numérico exacto de todas las inserciones, eliminaciones y comentarios vigentes en el archivo?",
+                a: [
+                    "Panel de revisión (Reviewing Pane).",
+                    "Línea de tiempo de versiones.",
+                    "Organizador de bloques de creación.",
+                    "Consola del verificador ortográfico."
+                ],
+                correct: 0,
+                fb: "¡Correcto! El Panel de revisión (ya sea vertical u horizontal) enumera de forma estructurada cada cambio cronológico realizado en el archivo."
+            },
+            {
+                q: "17. Si desea impedir estrictamente que otros usuarios alteren el tamaño de los márgenes o el espaciado de párrafos de su documento mediante estilos alternativos, ¿qué casilla debe activar?",
+                a: [
+                    "Restringir el formato a una selección de estilos (en Restringir edición).",
+                    "Configurar metadatos fijos en el Panel XML.",
+                    "Habilitar el modo estricto en el Centro de Confianza.",
+                    "Bloquear la posición de los cuadros de texto."
+                ],
+                correct: 0,
+                fb: "¡Es correcto! Al restringir el formato, puedes desactivar el uso de modificaciones directas de fuentes y forzar el uso de una hoja de estilos oficial bloqueada."
+            },
+            {
+                q: "18. Al realizar una comparación de documentos, ¿qué criterio evalúa Word para determinar que dos archivos son distintos si el texto literal es exactamente el mismo?",
+                a: [
+                    "Los cambios de formato (negritas, cursivas, espaciados).",
+                    "El nombre asignado a las imágenes incrustadas.",
+                    "La velocidad con la que se guardó cada archivo.",
+                    "La ubicación física del servidor donde están alojados."
+                ],
+                correct: 0,
+                fb: "¡Exacto! El motor de comparación analiza no solo la sintaxis del texto, sino también las propiedades estéticas y de formato aplicadas sobre las palabras."
+            },
+            {
+                q: "19. ¿Cuál es la ruta correcta de la pestaña Revisar para limpiar completamente el lienzo de una sugerencia de cambio realizada por un revisor, devolviendo el texto a su estado anterior?",
+                a: [
+                    "Hacer clic en el botón 'Rechazar' (o el menú desplegable de Rechazar).",
+                    "Eliminar el párrafo completo y reescribirlo.",
+                    "Usar el comando 'Marcar como resuelto'.",
+                    "Hacer clic en 'Aceptar' y luego presionar Ctrl + Z."
+                ],
+                correct: 0,
+                fb: "¡Excelente! 'Rechazar' descarta la modificación propuesta por el editor y preserva el estado original del documento."
+            },
+            {
+                q: "20. Al configurar la seguridad de Restringir edición, ¿qué alternativa permite otorgar permisos sin utilizar una contraseña tradicional de texto?",
+                a: [
+                    "Autenticación de usuarios mediante cuentas unificadas de dominio o Microsoft de forma selectiva.",
+                    "Criptografía por reconocimiento biométrico local.",
+                    "Generación de códigos QR temporales dinámicos.",
+                    "No existe alternativa; el uso de una clave alfanumérica escrita es obligatorio."
+                ],
+                correct: 0,
+                fb: "¡Excelente! Word permite restringir la edición vinculando la protección a correos específicos corporativos de Microsoft, obligando al usuario a iniciar sesión para validar su identidad."
+            }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+        let shuffledOptions = [];
+        let currentCorrectIndex = 0;
+
+        const questionText = document.getElementById("question-text");
+        const optionsContainer = document.getElementById("options-container");
+        const feedbackBox = document.getElementById("feedback");
+        const nextButton = document.getElementById("next-button");
+        const progressTracker = document.getElementById("progress");
+
+        function shuffleOptions(currentData) {
+            const originalOptions = [...currentData.a];
+            const originalCorrectText = originalOptions[currentData.correct];
+
+            for (let i = originalOptions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [originalOptions[i], originalOptions[j]] = [originalOptions[j], originalOptions[i]];
+            }
+
+            currentCorrectIndex = originalOptions.indexOf(originalCorrectText);
+            shuffledOptions = originalOptions;
+        }
+
+        function loadQuestion() {
+            feedbackBox.style.display = "none";
+            nextButton.style.display = "none";
+            
+            const currentData = questions[currentQ];
+            progressTracker.innerText = `Pregunta ${currentQ + 1} de ${questions.length}`;
+            questionText.innerText = currentData.q;
+            
+            shuffleOptions(currentData);
+            
+            optionsContainer.innerHTML = "";
+            shuffledOptions.forEach((option, index) => {
+                const button = document.createElement("button");
+                button.className = "option-btn";
+                button.innerText = option;
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function selectOption(selectedIndex) {
+            const currentData = questions[currentQ];
+            const buttons = optionsContainer.getElementsByClassName("option-btn");
+            
+            for(let btn of buttons) {
+                btn.disabled = true;
+            }
+
+            if (selectedIndex === currentCorrectIndex) {
+                score++;
+                feedbackBox.className = "feedback-box correct";
+                feedbackBox.innerHTML = `<strong>¡Correcto!</strong> <br>${currentData.fb}`;
+                buttons[selectedIndex].style.borderColor = "var(--success)";
+                buttons[selectedIndex].style.background = "rgba(16, 185, 129, 0.15)";
+            } else {
+                feedbackBox.className = "feedback-box incorrect";
+                feedbackBox.innerHTML = `<strong>Incorrecto.</strong> <br>${currentData.fb}`;
+                buttons[selectedIndex].style.borderColor = "var(--error)";
+                buttons[selectedIndex].style.background = "rgba(239, 68, 68, 0.15)";
+                buttons[currentCorrectIndex].style.borderColor = "var(--success)";
+            }
+            
+            nextButton.style.display = "block";
+        }
+
+        function nextQuestion() {
+            currentQ++;
+            if (currentQ < questions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            const container = document.getElementById("quiz-container");
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            container.innerHTML = `
+                <div class="score-screen">
+                    <h2>Simulación Finalizada</h2>
+                    <p>Tu puntuación en Seguridad y Revisión es de <strong>${score} de ${questions.length}</strong> correctas (${percentage}%).</p>
+                    <div style="margin-bottom: 2rem; font-size: 1.2rem; font-weight: bold; color: ${percentage >= 85 ? 'var(--success)' : 'var(--error)'}">
+                        ${percentage >= 85 ? '¡Excelente nivel! Listo para dominar las restricciones del examen real.' : 'Se sugiere repasar el uso del Inspector y Excepciones de usuario.'}
+                    </div>
+                    <div class="action-group">
+                        <button onclick="location.reload()" class="btn-action btn-primary">Reintentar</button>
+                        <a href="index.html" class="btn-action btn-secondary">Volver al Panel</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
